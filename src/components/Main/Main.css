@@ -15,14 +15,34 @@
   letter-spacing: -0.04em;
 }
 
+.section-text {
+  margin: 0;
+  padding-top: 26px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 143%;
+}
+
 @media screen and (max-width: 770px) {
   .section {
     max-width: 86.98%;
+  }
+
+  .section-text {
+    font-size: 12px;
+    line-height: 150%;
   }
 }
 
 @media screen and (max-width: 425px) {
   .section {
-    max-width: 89.06%;
+    max-width: 88.75%;
+  }
+
+  .section-text {
+    padding-top: 16px;
+    font-size: 11px;
+    line-height: 145%;
   }
 }
