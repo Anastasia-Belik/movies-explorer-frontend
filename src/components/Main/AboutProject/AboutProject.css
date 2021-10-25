@@ -78,6 +78,7 @@
 
   .about-project__timeline {
     padding-top: 93px;
+    grid-template-columns: 0.21fr 0.79fr;
   }
 
   .about-project__box {
@@ -85,7 +86,7 @@
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 436px) {
   .about-project {
     padding: 70px 0;
   }
