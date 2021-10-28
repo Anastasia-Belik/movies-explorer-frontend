@@ -3,8 +3,8 @@ import './App.css';
 import { Route, Switch } from "react-router-dom";
 
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 function App() {
 
@@ -15,8 +15,10 @@ function App() {
         <Route exact path="/">
           <Main />
         </Route>
+        <Route exact path="/404">
+          <NotFoundPage />
+        </Route>
       </Switch>
-      <Footer />
     </div>
   );
 }
