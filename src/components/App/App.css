@@ -7,7 +7,7 @@
 }
 
 .section {
-  max-width: 89.06%;
+  width: 89.06%;
   margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@
 
 @media screen and (max-width: 770px) {
   .section {
-    max-width: 86.98%;
+    width: 86.98%;
   }
 
   .section-text {
@@ -45,7 +45,7 @@
 
 @media screen and (max-width: 425px) {
   .section {
-    max-width: 88.75%;
+    width: 88.75%;
   }
 
   .section-text {
