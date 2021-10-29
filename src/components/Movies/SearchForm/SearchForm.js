@@ -15,8 +15,8 @@ function SearchForm() {
           <button className='search__button' />
         </div>
         <div className='search__switch-container'>
-          <label for='short-film' className='search__switch'>
-            <input type='checkbox' id='short-film'/>
+          <label className='search__switch'>
+            <input type='checkbox'/>
             <span className='search__slider'/>
           </label>
           <span className='search__shortfilm'>Короткометражки</span>
