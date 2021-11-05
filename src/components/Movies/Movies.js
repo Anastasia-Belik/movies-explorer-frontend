@@ -3,14 +3,17 @@ import React from "react";
 import './Movies.css'
 import Footer from "../Footer/Footer";
 import SearchForm from "./SearchForm/SearchForm";
-import MoviesCard from "./MoviesCard/MoviesCard";
+import MoviesCardList from "./MoviesCardList/MoviesCardList";
+
+import MockData from './mock-data.json';
+
 
 function Movies() {
   return(
     <>
       <main>
         <SearchForm />
-        <MoviesCard />
+        <MoviesCardList cards={MockData}/>
       </main>
       <Footer />
     </>
