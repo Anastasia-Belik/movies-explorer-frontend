@@ -1,6 +1,4 @@
 .movies-card {
-  max-width: 364px;
-  height: 271px;
   background: #FDFDFD;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
@@ -65,23 +63,23 @@
 }
 
 @media screen and (max-width: 770px) {
-  .movies-card {
-    max-width: 339px;
-    height: 258px;
-  }
 
   .movies-card__name {
     max-width: 250px;
   }
+
+  .movies-card__image {
+    height: 190px;
+  }
 }
 
 @media screen and (max-width: 576px) {
-  .movies-card {
-    max-width: 300px;
-    height: 236px;
-  }
 
   .movies-card__name {
     max-width: 210px;
+  }
+
+  .movies-card__image {
+    height: 168px;
   }
 }
