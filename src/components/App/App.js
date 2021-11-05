@@ -6,6 +6,7 @@ import Main from "../Main/Main";
 import Header from "../Header/Header";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies";
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route exact path="/movies">
           <Movies />
+        </Route>
+        <Route exact path="/saved-movies">
+          <SavedMovies />
         </Route>
       </Switch>
     </div>
