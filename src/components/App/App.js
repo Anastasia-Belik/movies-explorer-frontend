@@ -8,7 +8,8 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies";
 import Profile from "../Profile/Profile";
-import AuthForm from "../AuthForm/AuthForm";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 function App() {
 
@@ -33,10 +34,10 @@ function App() {
         </Route>
       </Switch>
       <Route exact path="/signin">
-        <AuthForm />
+        <Login />
       </Route>
       <Route exact path="/signup">
-        <AuthForm />
+        <Register />
       </Route>
     </div>
   );
