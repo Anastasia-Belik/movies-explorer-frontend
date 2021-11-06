@@ -37,7 +37,7 @@ function AuthForm() {
       </Link>
       <h1 className='authform__title'>{title}</h1>
       <form className='authform__form'>
-        <fieldset className='authform__fieldset'>
+        <fieldset className={`authform__fieldset ${(location.pathname === '/signin') && 'authform__fieldset_signin'}`}>
           { (location.pathname === '/signup') &&
             <label className='authform__label'>
             Имя
