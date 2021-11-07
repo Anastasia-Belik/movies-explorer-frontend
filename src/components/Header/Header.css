@@ -1,3 +1,153 @@
 .header {
   height: 74px;
+  padding: 0 5.47%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_type_logout {
+  background-color: #5C5C5C;
+}
+
+.header__navigation {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__navigation_location_main {
+  justify-content: flex-end;
+}
+
+.header__links {
+  margin: 0 0 0 44px;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.header__link {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.header__link_bold {
+  font-weight: 500;
+}
+
+.header__profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-end;
+  gap: 7px;
+  padding: 0 3px 0 11px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+  background-color: #ffffff;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 32px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header__icon-profile {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #F9F9F9;
+  background-image: url("../../images/icon__profile.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header__burgerButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  padding: 0;
+  background-color: #ffffff;
+  background-image: url("../../images/icon__burgerBtn.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header__burgerButton_location_main {
+  background-color: inherit;
+  filter: invert(100%);
+}
+
+.header__auth {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.header__register {
+  padding-right: 34px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.header__login {
+  width: 76px;
+  height: 32px;
+  background-color: #2BE080;
+  border-radius: 3px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    width: 92.19%;
+    padding: 0 3.905%;
+  }
+
+  .header__links {
+    display: none;
+  }
+
+  .header__profile {
+    display: none;
+  }
+
+  .header__navigation {
+    justify-content: flex-end;
+  }
+
+  .header__burgerButton {
+    display: block;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .header {
+    width: 91.25%;
+    padding: 0 4.375%;
+  }
 }
