@@ -41,17 +41,17 @@ function AuthForm() {
           { (location.pathname === '/signup') &&
             <label className='authform__label'>
             Имя
-            <input className='authform__input' type='text' value='Виталий' placeholder='Имя'/>
+            <input className='authform__input' type='text' value='Виталий' placeholder='Имя' required/>
             <span className='authform__input-err'>Текст ошибки</span>
           </label> }
           <label className='authform__label'>
             Email
-            <input className='authform__input' type='email' value='post@yandex.ru' placeholder='Email'/>
+            <input className='authform__input' type='email' value='post@yandex.ru' placeholder='Email' required/>
             <span className='authform__input-err'>Текст ошибки</span>
           </label>
           <label className='authform__label'>
             Пароль
-            <input className='authform__input authform__input_err' type='password' value='12345' placeholder='Пароль'/>
+            <input className='authform__input authform__input_err' type='password' value='12345' placeholder='Пароль' required/>
             <span className='authform__input-err authform__input-err_active'>Текст ошибки</span>
           </label>
         </fieldset>
