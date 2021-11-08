@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
+import Navigation from "../Navigation/Navigation";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
       <Route exact path="/signup">
         <Register />
       </Route>
+      <Navigation />
       <Footer />
     </div>
   );
