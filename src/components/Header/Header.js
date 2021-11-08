@@ -5,18 +5,39 @@ import './Header.css'
 import {useLocation} from "react-router";
 
 function Header() {
-
-  const isLogin = false;
   const location = useLocation();
 
+  //временное решение для отображения хэдера до момента реализации авторизации
+  const isLogin = location.pathname !== '/';
+  /////////////////
+
+  let headerClassNames;
+
+  switch (location.pathname){
+    case '/':
+      headerClassNames = 'header header_location_main';
+      break;
+    case '/movies':
+      headerClassNames = 'header';
+      break;
+    case '/saved-movies':
+      headerClassNames = 'header';
+      break;
+    case '/profile':
+      headerClassNames = 'header';
+      break;
+    default:
+      headerClassNames = 'header header_hidden';
+  }
+
   return (
-    <header className={`section header ${(location.pathname === '/') && 'header_type_logout'}`}>
+    <header className={`section ${headerClassNames}`}>
       <Link to='/'>
         <div className='logo' />
       </Link>
         <nav className={`header__navigation ${(location.pathname === '/') && 'header__navigation_location_main'}`}>
           { (location.pathname !== '/') &&
-          <ul className='header__links'>
+          <ul className='header__links header__links_type_movies'>
             <li>
               <Link to='/movies'
                     className={`header__link ${(location.pathname === '/movies') && 'header__link_bold'}`}>
@@ -39,17 +60,17 @@ function Header() {
               </Link>
               <button className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}/>
             </> :
-            <ul className='header__links'>
+            <ul className='header__links header__links_type_auth'>
               <li>
-                <Link to='/' className='header__register'>
+                <Link to='/signup' className='header__register'>
                   Регистрация
                 </Link>
               </li>
-              <li>
-                <Link to='/' className='header__login'>
+              <Link to='/signin' className='header__login'>
+                <li>
                   Войти
-                </Link>
-              </li>
+                </li>
+              </Link>
             </ul> }
         </nav>
     </header>
