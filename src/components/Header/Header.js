@@ -5,7 +5,7 @@ import './Header.css'
 import {useLocation} from "react-router";
 import ProfileLink from "../ProfileLink/ProfileLink";
 
-function Header() {
+function Header(props) {
   const location = useLocation();
 
   //временное решение для отображения хэдера до момента реализации авторизации
@@ -56,7 +56,10 @@ function Header() {
           { isLogin ?
             <>
               <ProfileLink isHeader={true}/>
-              <button className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}/>
+              <button
+                className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}
+                onClick={props.onBurgerButtonClick}
+              />
             </> :
             <ul className='header__links header__links_type_auth'>
               <li>

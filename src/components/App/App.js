@@ -1,5 +1,5 @@
 import './App.css';
-
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import Main from "../Main/Main";
@@ -15,9 +15,19 @@ import Navigation from "../Navigation/Navigation";
 
 function App() {
 
+  const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
+
+  function handleBurgerButtonClick(){
+    setIsNavigationOpen(true);
+  }
+
+  function closeNavigationBar() {
+    setIsNavigationOpen(false);
+  }
+
   return (
     <div className="app">
-      <Header />
+      <Header onBurgerButtonClick={handleBurgerButtonClick}/>
       <Switch>
         <Route exact path="/">
           <Main />
@@ -41,7 +51,7 @@ function App() {
           <NotFoundPage />
         </Route>
       </Switch>
-      <Navigation />
+      <Navigation isOpen={isNavigationOpen} onClose={closeNavigationBar}/>
       <Footer />
     </div>
   );
