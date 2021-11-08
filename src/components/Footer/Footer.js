@@ -14,9 +14,9 @@ function Footer() {
       <div className='footer__container'>
         <p className='footer__copyright'>&#169; 2021</p>
           <ul className='footer__links'>
-            <li><a href='https://www.facebook.com/' className='footer__link'>Яндекс.Практикум</a></li>
-            <li><a href='https://github.com/' className='footer__link'>GitHub</a></li>
-            <li><a href='https://www.facebook.com/' className='footer__link'>Facebook</a></li>
+            <li><a href='https://www.facebook.com/' rel="noreferrer" target="_blank" className='footer__link'>Яндекс.Практикум</a></li>
+            <li><a href='https://github.com/' rel="noreferrer" target="_blank" className='footer__link'>GitHub</a></li>
+            <li><a href='https://www.facebook.com/' rel="noreferrer" target="_blank" className='footer__link'>Facebook</a></li>
           </ul>
       </div>
     </footer>
