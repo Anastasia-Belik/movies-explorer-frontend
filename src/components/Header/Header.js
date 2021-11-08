@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import './Header.css'
 import {useLocation} from "react-router";
+import ProfileLink from "../ProfileLink/ProfileLink";
 
 function Header() {
   const location = useLocation();
@@ -54,10 +55,7 @@ function Header() {
           }
           { isLogin ?
             <>
-              <Link to='/profile' className='header__profile'>
-                Аккаунт
-                <div className='header__icon-profile'/>
-              </Link>
+              <ProfileLink isHeader={true}/>
               <button className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}/>
             </> :
             <ul className='header__links header__links_type_auth'>

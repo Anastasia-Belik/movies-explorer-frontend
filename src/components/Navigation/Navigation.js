@@ -3,12 +3,13 @@ import React from "react";
 import './Navigation.css';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
+import ProfileLink from "../ProfileLink/ProfileLink";
 
 function Navigation() {
   const location = useLocation();
 
   return(
-    <section className='navigation navigation_opened'>
+    <section className='navigation'>
       <div className='navigation__container'>
         <button className='navigation__close-icon'/>
         <nav className='navigation__list-container'>
@@ -29,10 +30,7 @@ function Navigation() {
               </Link>
             </li>
           </ul>
-          <Link to='/profile' className='header__profile navigation__profile'>
-            Аккаунт
-            <div className='header__icon-profile navigation__icon-profile'/>
-          </Link>
+          <ProfileLink isHeader={false}/>
         </nav>
 
       </div>

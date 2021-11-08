@@ -73,10 +73,6 @@
   border-bottom: 2px solid #000000;
 }
 
-.navigation__profile {
-  align-self: center;
-}
-
 @media screen and (max-width: 576px) {
   .navigation__container {
     width: 100%;

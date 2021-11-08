@@ -44,8 +44,6 @@
   gap: 30px;
 }
 
-
-
 .header__link {
   font-style: normal;
   font-weight: normal;
@@ -57,35 +55,6 @@
 
 .header__link_bold {
   font-weight: 500;
-}
-
-.header__profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-self: flex-end;
-  gap: 7px;
-  padding: 0 3px 0 11px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
-  border-radius: 40px;
-  background-color: #ffffff;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 32px;
-  color: #000000;
-  text-decoration: none;
-}
-
-.header__icon-profile {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: #F9F9F9;
-  background-image: url("../../images/icon__profile.svg");
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .header__burgerButton {
