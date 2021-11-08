@@ -30,8 +30,11 @@
 }
 
 .nfpage__back {
-  text-decoration: none;
-  padding-bottom: 60px;
+  border: 0;
+  padding: 0;
+  background: none;
+  margin-bottom: 60px;
+  cursor: pointer;
 
   font-style: normal;
   font-weight: normal;

@@ -22,9 +22,6 @@ function App() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route exact path="/404">
-          <NotFoundPage />
-        </Route>
         <Route exact path="/movies">
           <Movies />
         </Route>
@@ -34,13 +31,16 @@ function App() {
         <Route exact path="/profile">
           <Profile/>
         </Route>
+        <Route exact path="/signin">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <Register />
+        </Route>
+        <Route path="*">
+          <NotFoundPage />
+        </Route>
       </Switch>
-      <Route exact path="/signin">
-        <Login />
-      </Route>
-      <Route exact path="/signup">
-        <Register />
-      </Route>
       <Navigation />
       <Footer />
     </div>
