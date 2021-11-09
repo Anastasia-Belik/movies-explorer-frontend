@@ -16,9 +16,8 @@
 .navigation__container {
   position: absolute;
   right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 44px 1fr;
   width: 520px;
   height: 100vh;
   background-color: #ffffff;
@@ -30,7 +29,7 @@
   margin: 22px 22px 0 0;
   width: 22px;
   height: 22px;
-  align-self: flex-end;
+  justify-self: flex-end;
   background-image: url("../../images/icon__cross.svg");
   background-color: #ffffff;
   background-position: center;
@@ -42,7 +41,6 @@
 .navigation__list-container {
   padding-top: 105px;
   padding-bottom: 90px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,6 +74,10 @@
 @media screen and (max-width: 576px) {
   .navigation__container {
     width: 100%;
+  }
+
+  .navigation__container {
+    grid-template-rows: 35px 1fr;
   }
 
   .navigation__close-icon {
