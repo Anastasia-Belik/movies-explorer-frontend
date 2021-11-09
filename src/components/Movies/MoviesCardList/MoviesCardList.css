@@ -29,6 +29,29 @@
   text-align: center;
 }
 
+.cards__no-result {
+  display: none;
+  width: 50%;
+  margin: 60px auto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.cards__server-error {
+  display: none;
+  width: 50%;
+  margin: 60px auto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #EE3465;
+}
+
 @media screen and (max-width: 770px) {
   .cards {
     width: 92.18%;
@@ -38,6 +61,14 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: 30px;
     row-gap: 36px;
+  }
+
+  .cards__no-result {
+    width: 80%;
+  }
+
+  .cards__server-error {
+    width: 80%;
   }
 }
 
