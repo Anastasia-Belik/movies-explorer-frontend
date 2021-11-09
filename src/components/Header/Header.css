@@ -1,0 +1,143 @@
+.header {
+  height: 74px;
+  padding: 0 5.47%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_location_main {
+  background-color: #5C5C5C;
+}
+
+.header_hidden {
+  display: none;
+}
+
+.header__navigation {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__navigation_location_main {
+  justify-content: flex-end;
+}
+
+.header__links {
+  margin: 0 0 0 44px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.header__links_type_movies {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.header__links_type_auth {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.header__link {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.header__link_bold {
+  font-weight: 500;
+}
+
+.header__burgerButton {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  padding: 0;
+  background-color: #ffffff;
+  background-image: url("../../images/icon__burgerBtn.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header__burgerButton_location_main {
+  background-color: inherit;
+  filter: invert(100%);
+}
+
+.header__register {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.header__login {
+  width: 76px;
+  background-color: #2BE080;
+  border-radius: 3px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 32px;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    width: 92.19%;
+    padding: 0 3.905%;
+  }
+
+  .header__links_type_movies {
+    display: none;
+  }
+
+  .header__profile {
+    display: none;
+  }
+
+  .header__navigation {
+    justify-content: flex-end;
+  }
+
+  .header__burgerButton {
+    display: block;
+  }
+
+}
+
+@media screen and (max-width: 576px) {
+  .header {
+    width: 91.25%;
+    padding: 0 4.375%;
+  }
+
+  .header__links_type_auth {
+    gap: 14px;
+  }
+
+  .header__register {
+    font-size: 10px;
+  }
+
+  .header__login {
+    width: 54px;
+    font-size: 10px;
+    line-height: 26px;
+  }
+}

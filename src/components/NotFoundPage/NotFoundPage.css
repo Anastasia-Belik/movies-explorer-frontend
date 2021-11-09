@@ -1,0 +1,64 @@
+.nfpage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nfpage__content {
+  margin: auto;
+  text-align: center;
+}
+
+.nfpage__code {
+  margin: 0;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 140px;
+  line-height: 169px;
+}
+
+.nfpage__message {
+  margin: 0;
+  padding-top: 5px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.nfpage__back {
+  border: 0;
+  padding: 0;
+  background: none;
+  margin-bottom: 60px;
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #2BE080;
+}
+
+@media screen and (max-width: 435px) {
+  .nfpage__code {
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .nfpage__message {
+    padding-top: 10px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .nfpage__back {
+    padding-bottom: 30px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

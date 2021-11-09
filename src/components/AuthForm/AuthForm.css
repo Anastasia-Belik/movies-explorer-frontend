@@ -1,0 +1,167 @@
+.authform {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 70px 0;
+  width: 396px;
+}
+
+.authform__title {
+  margin: 40px 0;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.authform__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.authform__fieldset {
+  margin: 0;
+  padding: 0 0 147px;
+  border: 0;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.authform__fieldset_signin {
+  padding: 0 0 203px;
+}
+
+.authform__label {
+  display: flex;
+  flex-direction: column;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #A0A0A0;
+}
+
+.authform__input {
+  border: 0;
+  border-bottom: 1px solid #E8E8E8;
+  padding: 5px 0 10px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.authform__input_err {
+  color: #EE3465;
+}
+
+.authform__input:focus-visible {
+  outline: 0;
+  border-bottom: 1px solid #2BE080;
+}
+
+.authform__input-err {
+  opacity: 0;
+  padding-top: 6px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.authform__input-err_active {
+  opacity: 1;
+}
+
+.authform__button {
+  border: 0;
+  padding: 0;
+  width: 100%;
+  cursor: pointer;
+  background: #2BE080;
+  border-radius: 3px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 45px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.authform__button_inactiv {
+  background: none;
+  border: 1px solid #A0A0A0;
+  color: #A0A0A0;
+}
+
+.authform__link-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 16px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #A0A0A0;
+}
+
+.authform__link {
+  color: #2BE080;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 770px) {
+  .authform {
+    padding: 232px 0;
+  }
+
+  .authform__fieldset {
+    padding: 0 0 134px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .authform {
+    align-items: center;
+    padding: 56px 0 30px;
+    width: 260px;
+  }
+
+  .authform__title {
+    margin: 50px 0 80px;
+  }
+
+  .authform__fieldset {
+    padding: 0 0 222px;
+    width: 260px;
+  }
+
+  .authform__fieldset_signin {
+    padding: 0 0 291px;
+  }
+
+  .authform__button {
+    font-size: 12px;
+  }
+
+  .authform__link-container {
+    padding-top: 14px;
+    font-size: 12px;
+  }
+}
+
