@@ -3,9 +3,26 @@ import React from "react";
 import './AuthForm.css'
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
+import { useFormWithValidation } from '../../utils/validation';
 
 function AuthForm() {
   const location = useLocation();
+
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm
+  } = useFormWithValidation();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (isValid) {
+      console.log('форма отправлена');
+      resetForm();
+    }
+  }
 
   let title = '';
   let buttonText = '';
@@ -36,26 +53,52 @@ function AuthForm() {
         <div className='logo authform__logo' />
       </Link>
       <h1 className='authform__title'>{title}</h1>
-      <form className='authform__form'>
+      <form className='authform__form' name='authForm' noValidate onSubmit={handleSubmit}>
         <fieldset className={`authform__fieldset ${(location.pathname === '/signin') && 'authform__fieldset_signin'}`}>
+
           { (location.pathname === '/signup') &&
             <label className='authform__label'>
             Имя
-            <input className='authform__input' type='text' value='Виталий' placeholder='Имя' required/>
-            <span className='authform__input-err'>Текст ошибки</span>
+            <input className={`authform__input ${errors.nameInput && 'authform__input_err'}`}
+                   type='text'
+                   placeholder='Имя'
+                   name='nameInput'
+                   value={values.nameInput || ''}
+                   onChange={handleChange}
+                   required
+            />
+            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.nameInput}</span>
           </label> }
+
           <label className='authform__label'>
             Email
-            <input className='authform__input' type='email' value='post@yandex.ru' placeholder='Email' required/>
-            <span className='authform__input-err'>Текст ошибки</span>
+            <input className={`authform__input ${errors.emailInput && 'authform__input_err'}`}
+                   type='email'
+                   placeholder='Email'
+                   name='emailInput'
+                   value={values.emailInput || ''}
+                   onChange={handleChange}
+                   required
+            />
+            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.emailInput}</span>
           </label>
+
           <label className='authform__label'>
             Пароль
-            <input className='authform__input authform__input_err' type='password' value='12345' placeholder='Пароль' required/>
-            <span className='authform__input-err authform__input-err_active'>Текст ошибки</span>
+            <input className={`authform__input ${errors.passwordInput && 'authform__input_err'}`}
+                   type='password'
+                   placeholder='Пароль'
+                   name='passwordInput'
+                   value={values.passwordInput || ''}
+                   onChange={handleChange}
+                   required
+            />
+            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.passwordInput}</span>
           </label>
         </fieldset>
-        <button className='authform__button' type='button'>{buttonText}</button>
+
+        <button className={`authform__button ${!isValid && 'authform__button_inactiv'}`} type='submit'>{buttonText}</button>
+
       </form>
       <p className='authform__link-container'>
         {linkLabelText}&nbsp;
