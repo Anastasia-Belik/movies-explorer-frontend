@@ -63,6 +63,7 @@ function AuthForm() {
                    type='text'
                    placeholder='Имя'
                    name='nameInput'
+                   pattern='[a-zA-Zа-яА-Я -]{1,}'
                    value={values.nameInput || ''}
                    onChange={handleChange}
                    required
