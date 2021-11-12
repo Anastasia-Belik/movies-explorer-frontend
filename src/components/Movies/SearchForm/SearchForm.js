@@ -48,7 +48,7 @@ function SearchForm() {
           <span className='search__shortfilm'>Короткометражки</span>
         </div>
         </form>
-      <p className='search__input-error'>{errors.searchInput}</p>
+      <p className={`search__input-error ${errors.searchInput && 'search__input-error_active'}`}>{errors.searchInput || 'текст ошибки'}</p>
     </section>
   )
 }

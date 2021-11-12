@@ -128,12 +128,17 @@ input:checked + .search__slider:before {
 }
 
 .search__input-error {
+  opacity: 0;
   text-align: center;
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #EE3465;
+}
+
+.search__input-error_active {
+  opacity: 1;
 }
 
 @media screen and (max-width: 770px) {

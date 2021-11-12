@@ -68,7 +68,9 @@ function AuthForm() {
                    onChange={handleChange}
                    required
             />
-            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.nameInput}</span>
+            <span className={`authform__input-err ${errors.nameInput && 'authform__input-err_active'}`}>
+              {errors.nameInput || 'текст ошибки'}
+            </span>
           </label> }
 
           <label className='authform__label'>
@@ -81,7 +83,9 @@ function AuthForm() {
                    onChange={handleChange}
                    required
             />
-            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.emailInput}</span>
+            <span className={`authform__input-err ${errors.emailInput && 'authform__input-err_active'}`}>
+              {errors.emailInput || 'текст ошибки'}
+            </span>
           </label>
 
           <label className='authform__label'>
@@ -94,7 +98,9 @@ function AuthForm() {
                    onChange={handleChange}
                    required
             />
-            <span className={`authform__input-err ${!isValid && 'authform__input-err_active'}`}>{errors.passwordInput}</span>
+            <span className={`authform__input-err ${errors.passwordInput && 'authform__input-err_active'}`}>
+              {errors.passwordInput || 'текст ошибки'}
+            </span>
           </label>
         </fieldset>
 
