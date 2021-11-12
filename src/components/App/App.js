@@ -1,6 +1,8 @@
 import './App.css';
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -15,6 +17,9 @@ import Navigation from "../Navigation/Navigation";
 
 function App() {
 
+  const history = useHistory();
+
+  const [currentUser, setCurrentUser] = React.useState({});
   const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
 
   function handleBurgerButtonClick(){
@@ -26,6 +31,7 @@ function App() {
   }
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="app">
       <Header onBurgerButtonClick={handleBurgerButtonClick}/>
       <Switch>
@@ -54,6 +60,7 @@ function App() {
       <Navigation isOpen={isNavigationOpen} onClose={closeNavigationBar}/>
       <Footer />
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
