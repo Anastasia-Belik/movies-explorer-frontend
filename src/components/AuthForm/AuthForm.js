@@ -70,7 +70,7 @@ function AuthForm(props) {
                    type='text'
                    placeholder='Имя'
                    name='nameInput'
-                   pattern='[a-zA-Zа-яА-Я -]{1,}'
+                   pattern='[a-zA-Zа-яА-ЯёЁ\s-]{2,30}'
                    value={values.nameInput || ''}
                    onChange={handleChange}
                    required

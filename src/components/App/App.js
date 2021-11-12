@@ -22,7 +22,8 @@ function App() {
 
   const [isRegistred, setIsRegistred] = React.useState();
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [apiErrMessage, setApiErrMessage] = React.useState();
+  const [apiErrMessage, setApiErrMessage] = React.useState('');
+  const [apiOkMessage, setApiOkMessage] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({});
   const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
 
@@ -53,19 +54,45 @@ function App() {
     MainApi.authorize(email, password)
       .then((data) => {
           if (data.token) {
+
             setLoggedIn(true);
+
             history.push('/movies');
-            localStorage.setItem('jwt', data.token);
-            return data;
+
+            MainApi.getUserInfo(data.token)  //получение данных о юзере
+              .then(data => {
+                setCurrentUser(data.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+
           }
         }
       )
       .catch(err => setApiErrMessage(err));
   }
 
+  function handleUpdateProfile(name, email) {
+    const token = localStorage.getItem('jwt');
+
+    MainApi.updateUserInfo(name, email, token)
+      .then((res) => {
+        if (res) {
+          setApiOkMessage('Информация успешно обновлена')
+          setApiErrMessage('');
+          setCurrentUser(res.data)
+        }
+      })
+      .catch((err) => {
+        setApiErrMessage(err);
+      });
+  }
+
   function handleSignOut() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
+    setApiErrMessage('');
     history.push('/');
   }
 
@@ -98,6 +125,13 @@ function App() {
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
+      MainApi.getUserInfo(jwt)  //получение данных о юзере
+        .then(data => {
+          setCurrentUser(data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
       console.log('отправляю какой-то запрос')
     }
   }, [history])
@@ -132,6 +166,9 @@ function App() {
           loggedIn={loggedIn}
           component={Profile}
           onSignOut={handleSignOut}
+          onUpdateProfile={handleUpdateProfile}
+          onError={apiErrMessage}
+          onOk={apiOkMessage}
         />
         <Route path="*">
           <NotFoundPage />

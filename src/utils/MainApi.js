@@ -46,3 +46,26 @@ export const getContent = (token) => {
     .then(response => _getResponseData(response))
     .then(data => data)
 }
+
+export const getUserInfo = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+    .then(res => _getResponseData(res))
+}
+
+export const updateUserInfo = (name, email, token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({name, email})
+  })
+    .then(res => _getResponseData(res))
+}

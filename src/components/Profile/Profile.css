@@ -23,7 +23,7 @@
 
 .profile__fieldset {
   margin: 0;
-  padding: 123px 0 220px;
+  padding: 123px 0;
   border: 0;
 
   display: flex;
@@ -89,13 +89,32 @@
   border-radius: 3px;
 }
 
+.profile__result {
+  opacity: 0;
+  padding-bottom: 97px;
+}
+
+.profile__result_type_ok {
+  opacity: 1;
+  color: #2BE080;
+}
+
+.profile__result_type_err {
+  opacity: 1;
+  color: #EE3465;
+}
+
 @media screen and (max-width: 770px) {
   .profile {
     padding: 236px 0 0;
   }
 
   .profile__fieldset {
-    padding: 96px 0 210px;
+    padding: 96px 0;
+  }
+
+  .profile__result {
+    padding-bottom: 114px;
   }
 }
 
@@ -105,8 +124,12 @@
   }
 
   .profile__fieldset {
-    padding: 80px 0 379px;
+    padding: 80px 0;
     width: 260px;
+  }
+
+  .profile__result {
+    padding-bottom: 299px;
   }
 
 }
