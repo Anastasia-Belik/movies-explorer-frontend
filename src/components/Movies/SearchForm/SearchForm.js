@@ -17,7 +17,6 @@ function SearchForm() {
   function handleSubmit(event) {
     event.preventDefault();
     if (values['searchInput']) {
-      console.log(values['searchInput']);
       resetForm();
     }
   }

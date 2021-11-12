@@ -1,10 +1,10 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
 
-function Login() {
+function Login(props) {
   return(
     <>
-      <AuthForm />
+      <AuthForm onLogin={props.onLogin} onError={props.onError}/>
     </>
   )
 }

@@ -10,7 +10,7 @@ function Movies() {
   return(
     <main>
       <SearchForm />
-       <MoviesCardList cards={MockData}/>
+      <MoviesCardList cards={MockData}/>
     </main>
   )
 }

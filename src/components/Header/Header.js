@@ -8,9 +8,7 @@ import ProfileLink from "../ProfileLink/ProfileLink";
 function Header(props) {
   const location = useLocation();
 
-  //временное решение для отображения хэдера до момента реализации авторизации
-  const isLogin = location.pathname !== '/';
-  /////////////////
+  const isLogin = props.isLogin
 
   let headerClassNames;
 

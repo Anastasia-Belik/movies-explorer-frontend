@@ -2,7 +2,7 @@ import React from "react";
 
 import './Profile.css';
 
-function Profile() {
+function Profile(props) {
   return(
     <section className='profile'>
       <h1 className='profile__title'>Привет, Виталий!</h1>
@@ -19,7 +19,7 @@ function Profile() {
         </fieldset>
         <button className='profile__button'>Редактировать</button>
       </form>
-      <button className='profile__button profile__button_type_exit'>Выйти из аккаунта</button>
+      <button className='profile__button profile__button_type_exit' onClick={props.onSignOut}>Выйти из аккаунта</button>
     </section>
   )
 }

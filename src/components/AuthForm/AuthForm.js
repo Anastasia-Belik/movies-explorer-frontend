@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
 import { useFormWithValidation } from '../../utils/validation';
 
-function AuthForm() {
+function AuthForm(props) {
   const location = useLocation();
 
   const {
@@ -19,7 +19,14 @@ function AuthForm() {
   function handleSubmit(event) {
     event.preventDefault();
     if (isValid) {
-      console.log('форма отправлена');
+      switch (location.pathname) {
+        case '/signup':
+          props.onRegister(values);
+          break;
+        case '/signin':
+          props.onLogin(values);
+          break;
+      }
       resetForm();
     }
   }
@@ -104,6 +111,7 @@ function AuthForm() {
           </label>
         </fieldset>
 
+        <span className='authform__api-err'>{props.onError}</span>
         <button className={`authform__button ${!isValid && 'authform__button_inactiv'}`} type='submit'>{buttonText}</button>
 
       </form>
