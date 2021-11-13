@@ -44,7 +44,7 @@ function SearchForm(props) {
         </div>
         <div className='search__switch-container'>
           <label className='search__switch'>
-            <input type='checkbox'/>
+            <input type='checkbox' onClick={props.onCheckBoxClick}/>
             <span className='search__slider'/>
           </label>
           <span className='search__shortfilm'>Короткометражки</span>

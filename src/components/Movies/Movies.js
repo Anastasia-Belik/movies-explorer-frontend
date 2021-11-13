@@ -2,6 +2,7 @@ import React from "react";
 
 import * as MoviesApi from '../../utils/MoviesApi';
 import filterResult from "../../utils/filterResult";
+import filterDuration from "../../utils/filterDuration";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
@@ -10,17 +11,27 @@ function Movies() {
 
   const [searchInput, setSearchInput] = React.useState();
   const [searchResult, setSearchResult] = React.useState([]);
+  const [isCheckBoxActive, setIsCheckBoxActive] = React.useState(false);
 
   function onSearch(inputValue) {
     setSearchInput(inputValue);
+  }
+
+  function handleCheckBoxClick() {
+    setIsCheckBoxActive(!isCheckBoxActive)
   }
 
   React.useEffect(() => {
     if (searchInput) {
       MoviesApi.getMovies()
         .then((res) => {
-          const arr = filterResult(res, searchInput)
-          setSearchResult(arr);
+          const filteredResult = filterResult(res, searchInput);
+          if(isCheckBoxActive){
+            const filteredDuration = filterDuration(filteredResult, 41);
+            setSearchResult(filteredDuration);
+          } else {
+            setSearchResult(filteredResult);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -31,7 +42,7 @@ function Movies() {
 
   return(
     <main>
-      <SearchForm onSearch={onSearch}/>
+      <SearchForm onSearch={onSearch} onCheckBoxClick={handleCheckBoxClick}/>
       <MoviesCardList cards={searchResult}/>
     </main>
   )
