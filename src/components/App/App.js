@@ -101,6 +101,34 @@ function App() {
     setIsNavigationOpen(false);
   }
 
+  function handleSaveMovie(card){
+    const token = localStorage.getItem('jwt');
+
+    MainApi.saveMovie(card, token)
+      .then((res) => {
+        if (res) {
+          console.log(res)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleDeleteMovie(id) {
+    const token = localStorage.getItem('jwt');
+
+    MainApi.deleteMovie(id, token)
+      .then((res) => {
+        if (res) {
+          console.log(res)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
@@ -152,6 +180,8 @@ function App() {
           path="/movies"
           loggedIn={loggedIn}
           component={Movies}
+          onSave={handleSaveMovie}
+          onDelete={handleDeleteMovie}
         />
         <ProtectedRoute
           path="/saved-movies"

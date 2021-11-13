@@ -69,3 +69,53 @@ export const updateUserInfo = (name, email, token) => {
   })
     .then(res => _getResponseData(res))
 }
+
+export const saveMovie = (movie, token) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    id,
+  } = movie
+
+  return fetch(`${BASE_URL}/movies/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image: `https://api.nomoreparties.co${image.url}`,
+      trailer: trailerLink,
+      nameRU,
+      nameEN,
+      thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+      movieId: id,
+    })
+  })
+    .then(res => _getResponseData(res))
+}
+
+export const deleteMovie = (id, token) => {
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+    .then(res => _getResponseData(res))
+}
+
+

@@ -7,7 +7,7 @@ import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 
 
-function Movies() {
+function Movies(props) {
 
   const [searchInput, setSearchInput] = React.useState();
   const [searchResult, setSearchResult] = React.useState([]);
@@ -43,7 +43,7 @@ function Movies() {
   return(
     <main>
       <SearchForm onSearch={onSearch} onCheckBoxClick={handleCheckBoxClick}/>
-      <MoviesCardList cards={searchResult}/>
+      <MoviesCardList cards={searchResult} onSave={props.onSave} onDelete={props.onDelete}/>
     </main>
   )
 }

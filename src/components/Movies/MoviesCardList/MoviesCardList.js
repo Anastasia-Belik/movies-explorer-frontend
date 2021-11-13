@@ -55,6 +55,8 @@ function MoviesCardList(props) {
           <MoviesCard
             data={card}
             key={card.id}
+            onSave={props.onSave}
+            onDelete={props.onDelete}
           />
         ))}
       </ul>

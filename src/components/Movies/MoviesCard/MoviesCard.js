@@ -7,7 +7,7 @@ import './MoviesCard.css';
 function MoviesCard(props) {
 
   const location = useLocation();
-  let isSaved = false;
+  let isSaved = true;
 
   let saveButtonClassName;
   if(location.pathname === '/saved-movies') {
@@ -18,6 +18,14 @@ function MoviesCard(props) {
 
   const hour = Math.floor(props.data.duration / 60);
   const min = props.data.duration - hour * 60;
+
+  function handleSaveButtonClick() {
+    props.onSave(props.data)
+  }
+
+  function handleDeleteButtonClick() {
+    props.onDelete(props.data.id)
+  }
 
 
   return(
@@ -32,6 +40,7 @@ function MoviesCard(props) {
         <button
           className={`movies-card__icon movies-card__icon_type_${saveButtonClassName}`}
           type='button'
+          onClick={isSaved ? handleDeleteButtonClick : handleSaveButtonClick}
         />
       </div>
       <a href={props.data.trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
