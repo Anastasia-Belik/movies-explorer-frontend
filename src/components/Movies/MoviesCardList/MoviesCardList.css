@@ -14,6 +14,7 @@
 }
 
 .cards__button {
+  display: none;
   width: 320px;
   border: 1px solid #E8E8E8;
   border-radius: 5px;
@@ -27,6 +28,10 @@
   font-size: 12px;
   line-height: 36px;
   text-align: center;
+}
+
+.cards__button_active {
+  display: block;
 }
 
 .cards__no-result {

@@ -26,6 +26,7 @@ function AuthForm(props) {
         case '/signin':
           props.onLogin(values);
           break;
+        default: props.onRegister(values);
       }
       resetForm();
     }

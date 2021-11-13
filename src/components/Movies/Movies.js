@@ -29,8 +29,6 @@ function Movies() {
     }
   , [searchInput]);
 
-  console.log(searchResult);
-
   return(
     <main>
       <SearchForm onSearch={onSearch}/>
