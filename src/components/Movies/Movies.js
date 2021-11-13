@@ -1,15 +1,15 @@
 import React from "react";
 
 import * as MoviesApi from '../../utils/MoviesApi';
+import filterResult from "../../utils/filterResult";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
-
-import MockData from './mock-data.json';
 
 
 function Movies() {
 
   const [searchInput, setSearchInput] = React.useState();
+  const [searchResult, setSearchResult] = React.useState([]);
 
   function onSearch(inputValue) {
     setSearchInput(inputValue);
@@ -19,7 +19,8 @@ function Movies() {
     if (searchInput) {
       MoviesApi.getMovies()
         .then((res) => {
-          console.log(res)
+          const arr = filterResult(res, searchInput)
+          setSearchResult(arr);
         })
         .catch((err) => {
           console.log(err);
@@ -28,10 +29,12 @@ function Movies() {
     }
   , [searchInput]);
 
+  console.log(searchResult);
+
   return(
     <main>
       <SearchForm onSearch={onSearch}/>
-      <MoviesCardList cards={MockData}/>
+      <MoviesCardList cards={searchResult}/>
     </main>
   )
 }

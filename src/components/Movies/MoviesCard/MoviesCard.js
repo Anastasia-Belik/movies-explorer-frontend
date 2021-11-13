@@ -16,20 +16,22 @@ function MoviesCard(props) {
     saveButtonClassName = isSaved ? 'saved' : 'notsaved';
   }
 
+  const hour = Math.floor(props.data.duration / 60);
+  const min = props.data.duration - hour * 60;
 
   return(
     <li className='movies-card'>
       <div className='movies-card__header'>
         <div className='movies-card__info'>
-          <h2 className='movies-card__name' title={props.data.name}>{props.data.name}</h2>
-          <p className='movies-card__duration'>{props.data.duration}</p>
+          <h2 className='movies-card__name' title={props.data.nameRU}>{props.data.nameRU}</h2>
+          <p className='movies-card__duration'>{hour > 0 && `${hour}ч`} {min > 0 && `${min}м`}</p>
         </div>
         <button
           className={`movies-card__icon movies-card__icon_type_${saveButtonClassName}`}
           type='button'
         />
       </div>
-      <img className='movies-card__image' src={props.data.image} alt={props.data.name}/>
+      <img className='movies-card__image' src={`https://api.nomoreparties.co${props.data.image.url}`} alt={props.data.nameRU}/>
     </li>
   )
 }

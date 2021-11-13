@@ -20,7 +20,6 @@ function App() {
 
   const history = useHistory();
 
-  const [isRegistred, setIsRegistred] = React.useState();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [apiErrMessage, setApiErrMessage] = React.useState('');
   const [apiOkMessage, setApiOkMessage] = React.useState('');
@@ -36,13 +35,11 @@ function App() {
     MainApi.register(email, password, name)
       .then((res) => {
         if (res) {
-          setIsRegistred(true)
           setApiErrMessage('');
           handleLogin(values);
         }
       })
       .catch((err) => {
-        setIsRegistred(false);
         setApiErrMessage(err);
       });
   }

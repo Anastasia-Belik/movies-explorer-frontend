@@ -4,13 +4,14 @@ import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList(props) {
+
   return(
     <section className="section cards">
       <ul className="cards__list">
         {props.cards.map((card) => (
           <MoviesCard
             data={card}
-            key={card.movieId}
+            key={card.id}
           />
         ))}
       </ul>
