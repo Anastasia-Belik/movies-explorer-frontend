@@ -4,7 +4,7 @@ import './SearchForm.css'
 
 import { useFormWithValidation } from '../../../utils/validation';
 
-function SearchForm() {
+function SearchForm(props) {
 
   const {
     values,
@@ -17,9 +17,12 @@ function SearchForm() {
   function handleSubmit(event) {
     event.preventDefault();
     if (values['searchInput']) {
+      props.onSearch(values['searchInput']);
       resetForm();
     }
   }
+
+  const customErrMessage = errors.searchInput ? 'Нужно ввести ключевое слово' : '';
 
   return(
     <section className='section search'>
@@ -47,7 +50,9 @@ function SearchForm() {
           <span className='search__shortfilm'>Короткометражки</span>
         </div>
         </form>
-      <p className={`search__input-error ${errors.searchInput && 'search__input-error_active'}`}>{errors.searchInput || 'текст ошибки'}</p>
+      <p className={`search__input-error ${errors.searchInput && 'search__input-error_active'}`}>
+        {customErrMessage || 'текст ошибки'}
+      </p>
     </section>
   )
 }
