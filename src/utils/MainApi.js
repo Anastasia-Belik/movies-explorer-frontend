@@ -107,6 +107,17 @@ export const saveMovie = (movie, token) => {
     .then(res => _getResponseData(res))
 }
 
+export const getSavedMovies = (token) => {
+  return fetch(`${BASE_URL}/movies/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+    .then(res => _getResponseData(res))
+}
+
 export const deleteMovie = (id, token) => {
   return fetch(`${BASE_URL}/movies/${id}`, {
     method: 'DELETE',

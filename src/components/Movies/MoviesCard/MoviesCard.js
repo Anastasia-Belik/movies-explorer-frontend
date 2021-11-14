@@ -7,24 +7,28 @@ import './MoviesCard.css';
 function MoviesCard(props) {
 
   const location = useLocation();
-  let isSaved = true;
 
   let saveButtonClassName;
+  let imgLink
+
   if(location.pathname === '/saved-movies') {
     saveButtonClassName = 'delete';
+    imgLink = props.data.image;
   } else {
-    saveButtonClassName = isSaved ? 'saved' : 'notsaved';
+    saveButtonClassName = props.data.isSaved ? 'saved' : 'notsaved';
+    imgLink = `https://api.nomoreparties.co${props.data.image.url}`
   }
 
   const hour = Math.floor(props.data.duration / 60);
   const min = props.data.duration - hour * 60;
 
+
   function handleSaveButtonClick() {
-    props.onSave(props.data)
+    props.onSave(props.data);
   }
 
   function handleDeleteButtonClick() {
-    props.onDelete(props.data.id)
+    props.onDelete(props.data._id)
   }
 
 
@@ -40,11 +44,11 @@ function MoviesCard(props) {
         <button
           className={`movies-card__icon movies-card__icon_type_${saveButtonClassName}`}
           type='button'
-          onClick={isSaved ? handleDeleteButtonClick : handleSaveButtonClick}
+          onClick={props.data.isSaved ? handleDeleteButtonClick : handleSaveButtonClick}
         />
       </div>
       <a href={props.data.trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
-        <img className='movies-card__image' src={`https://api.nomoreparties.co${props.data.image.url}`} alt={props.data.nameRU}/>
+        <img className='movies-card__image' src={imgLink} alt={props.data.nameRU}/>
       </a>
     </li>
   )

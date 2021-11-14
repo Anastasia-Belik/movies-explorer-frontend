@@ -2,8 +2,10 @@ import React from "react";
 
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
+import {useLocation} from "react-router";
 
 function MoviesCardList(props) {
+  const location = useLocation();
 
   const [allCards, setAllCards] = React.useState([]);
   const [visibleCards, setVisibleCards] = React.useState([]);
@@ -45,16 +47,19 @@ function MoviesCardList(props) {
 
     window.addEventListener("resize", onResize);
 
-  }, [allCards, maxVisibleCards]);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
 
+  }, [allCards, maxVisibleCards]);
 
   return(
     <section className="section cards">
       <ul className="cards__list">
-        {visibleCards.map((card) => (
+        {((location.pathname === '/saved-movies') ? props.cards : visibleCards).map((card) => (
           <MoviesCard
             data={card}
-            key={card.id}
+            key={card.nameRU}
             onSave={props.onSave}
             onDelete={props.onDelete}
           />
@@ -63,7 +68,7 @@ function MoviesCardList(props) {
       <p className="cards__no-result">По вашему запросу ничего не найдено, попробуйте еще раз</p>
       <p className="cards__server-error">Упс, на сайте что-то поломалось, подождите немного и попробуйте еще раз</p>
       <div className='cards__button-container'>
-        <button className={`cards__button ${allCards.length > 0 && 'cards__button_active'}`}
+        <button className={`cards__button ${(location.pathname === '/movies') && allCards.length > 0 && 'cards__button_active'}`}
                 type='button'
                 onClick={handleClick}>
           Еще

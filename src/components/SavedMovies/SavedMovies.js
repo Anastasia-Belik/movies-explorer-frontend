@@ -1,15 +1,22 @@
 import React from "react";
 
-import MockData from '../Movies/mock-data.json';
+
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 
 
-function SavedMovies() {
+function SavedMovies(props) {
+
+  const [savedMovies, setSavedMovies] = React.useState([]);
+
+  React.useEffect(() => {
+    setSavedMovies(props.data)
+  }, [props.data])
+
   return(
     <main>
       <SearchForm />
-      <MoviesCardList cards={MockData}/>
+      <MoviesCardList cards={savedMovies} onDelete={props.onDelete}/>
     </main>
   )
 }

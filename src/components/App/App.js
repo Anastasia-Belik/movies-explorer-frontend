@@ -25,6 +25,7 @@ function App() {
   const [apiOkMessage, setApiOkMessage] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({});
   const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   function handleRegister(values) {
 
@@ -50,20 +51,19 @@ function App() {
 
     MainApi.authorize(email, password)
       .then((data) => {
-          if (data.token) {
+        if (data.token) {
 
-            setLoggedIn(true);
+          setLoggedIn(true);
 
-            history.push('/movies');
+          history.push('/movies');
 
-            MainApi.getUserInfo(data.token)  //получение данных о юзере
-              .then(data => {
-                setCurrentUser(data.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-
+          MainApi.getUserInfo(data.token)  //получение данных о юзере
+            .then(data => {
+              setCurrentUser(data.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
           }
         }
       )
@@ -88,6 +88,7 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('searchResult');
     setLoggedIn(false);
     setApiErrMessage('');
     history.push('/');
@@ -107,7 +108,16 @@ function App() {
     MainApi.saveMovie(card, token)
       .then((res) => {
         if (res) {
-          console.log(res)
+          MainApi.getSavedMovies(token)
+            .then((res) => {
+              res.movies.forEach((movie) => {
+                movie.isSaved = true;
+              })
+              setSavedMovies(res.movies);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
         }
       })
       .catch((err) => {
@@ -115,13 +125,17 @@ function App() {
       });
   }
 
-  function handleDeleteMovie(id) {
+  function handleDeleteMovie(id) { //здесь надо передавать ObjectId, который приходит от монго
     const token = localStorage.getItem('jwt');
 
     MainApi.deleteMovie(id, token)
       .then((res) => {
         if (res) {
-          console.log(res)
+          const idx = savedMovies.findIndex(el => el._id === id);
+          setSavedMovies(prev => {
+            prev.splice(idx, 1);
+            return [...prev]
+          });
         }
       })
       .catch((err) => {
@@ -157,6 +171,17 @@ function App() {
         .catch((err) => {
           console.log(err);
         })
+      MainApi.getSavedMovies(jwt)
+        .then((res) => {
+          res.movies.forEach((movie) => {
+            movie.isSaved = true;
+          })
+          setSavedMovies(res.movies);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
       console.log('отправляю какой-то запрос')
     }
   }, [history])
@@ -187,6 +212,8 @@ function App() {
           path="/saved-movies"
           loggedIn={loggedIn}
           component={SavedMovies}
+          onDelete={handleDeleteMovie}
+          data={savedMovies}
         />
         <ProtectedRoute
           path="/profile"
