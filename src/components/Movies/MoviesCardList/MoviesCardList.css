@@ -35,7 +35,6 @@
 }
 
 .cards__no-result {
-  display: none;
   width: 50%;
   margin: 60px auto;
   font-style: normal;
@@ -46,7 +45,6 @@
 }
 
 .cards__server-error {
-  display: none;
   width: 50%;
   margin: 60px auto;
   font-style: normal;

@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {Route, Switch, useHistory} from "react-router-dom";
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 import * as MainApi from '../../utils/MainApi';
 import Main from "../Main/Main";
@@ -26,6 +26,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function handleRegister(values) {
 
@@ -33,14 +34,18 @@ function App() {
     const email = values.emailInput;
     const password = values.passwordInput;
 
+    setIsLoading(true);
+
     MainApi.register(email, password, name)
       .then((res) => {
         if (res) {
           setApiErrMessage('');
           handleLogin(values);
+          setIsLoading(false);
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         setApiErrMessage(err);
       });
   }
@@ -49,32 +54,41 @@ function App() {
     const email = values.emailInput;
     const password = values.passwordInput;
 
+    setIsLoading(true);
+
     MainApi.authorize(email, password)
       .then((data) => {
-        if (data.token) {
+          if (data.token) {
 
-          setLoggedIn(true);
+            setLoggedIn(true);
 
-          history.push('/movies');
+            history.push('/movies');
 
-          MainApi.getUserInfo(data.token)  //получение данных о юзере
-            .then(data => {
-              setCurrentUser(data.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            })
+            MainApi.getUserInfo(data.token)  //получение данных о юзере
+              .then(data => {
+                setCurrentUser(data.data);
+                setIsLoading(false);
+              })
+              .catch((err) => {
+                setIsLoading(false);
+                console.log(err);
+              })
           }
         }
       )
-      .catch(err => setApiErrMessage(err));
+      .catch(err => {
+        setIsLoading(false);
+        setApiErrMessage(err)
+      });
   }
 
   function handleUpdateProfile(name, email) {
     const token = localStorage.getItem('jwt');
 
+    setIsLoading(true);
     MainApi.updateUserInfo(name, email, token)
       .then((res) => {
+        setIsLoading(false);
         if (res) {
           setApiOkMessage('Информация успешно обновлена')
           setApiErrMessage('');
@@ -82,6 +96,7 @@ function App() {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         setApiErrMessage(err);
       });
   }
@@ -94,7 +109,7 @@ function App() {
     history.push('/');
   }
 
-  function handleBurgerButtonClick(){
+  function handleBurgerButtonClick() {
     setIsNavigationOpen(true);
   }
 
@@ -102,35 +117,39 @@ function App() {
     setIsNavigationOpen(false);
   }
 
-  function handleSaveMovie(card){
+  function handleSaveMovie(card) {
     const token = localStorage.getItem('jwt');
-
+    setIsLoading(true);
     MainApi.saveMovie(card, token)
       .then((res) => {
         if (res) {
           MainApi.getSavedMovies(token)
             .then((res) => {
+              setIsLoading(false);
               res.movies.forEach((movie) => {
                 movie.isSaved = true;
               })
               setSavedMovies(res.movies);
             })
             .catch((err) => {
+              setIsLoading(false);
               console.log(err);
             })
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
       });
   }
 
   function handleDeleteMovie(id) { //здесь надо передавать ObjectId, который приходит от монго
     const token = localStorage.getItem('jwt');
-
+    setIsLoading(true);
     MainApi.deleteMovie(id, token)
       .then((res) => {
         if (res) {
+          setIsLoading(false);
           const idx = savedMovies.findIndex(el => el._id === id);
           setSavedMovies(prev => {
             prev.splice(idx, 1);
@@ -139,6 +158,7 @@ function App() {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
       });
   }
@@ -147,14 +167,17 @@ function App() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
+        setIsLoading(true);
         MainApi.getContent(jwt)
           .then((res) => {
             if (res) {
+              setIsLoading(false);
               setLoggedIn(true);
               history.push('/movies')
             }
           })
           .catch((err) => {
+            setIsLoading(false);
             console.log(err);
           });
       }
@@ -164,73 +187,81 @@ function App() {
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
+      setIsLoading(true);
       MainApi.getUserInfo(jwt)  //получение данных о юзере
         .then(data => {
+          setIsLoading(false);
           setCurrentUser(data.data);
         })
         .catch((err) => {
+          setIsLoading(false);
           console.log(err);
         })
+
+      setIsLoading(true);
       MainApi.getSavedMovies(jwt)
         .then((res) => {
+          setIsLoading(false);
           res.movies.forEach((movie) => {
             movie.isSaved = true;
           })
           setSavedMovies(res.movies);
         })
         .catch((err) => {
+          setIsLoading(false);
           console.log(err);
         })
-
-      console.log('отправляю какой-то запрос')
     }
   }, [history])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="app">
-      <Header onBurgerButtonClick={handleBurgerButtonClick} isLogin={loggedIn}/>
-      <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route exact path="/signin">
-          <Login onLogin={handleLogin} onError={apiErrMessage}/>
-        </Route>
-        <Route exact path="/signup">
-          <Register onRegister={handleRegister} onError={apiErrMessage}/>
-        </Route>
+      <div className="app">
+        <Header onBurgerButtonClick={handleBurgerButtonClick} isLogin={loggedIn}/>
+        <Switch>
+          <Route exact path="/">
+            <Main/>
+          </Route>
+          <Route exact path="/signin">
+            <Login onLogin={handleLogin} onError={apiErrMessage} isLoading={isLoading}/>
+          </Route>
+          <Route exact path="/signup">
+            <Register onRegister={handleRegister} onError={apiErrMessage} isLoading={isLoading}/>
+          </Route>
 
-        <ProtectedRoute
-          path="/movies"
-          loggedIn={loggedIn}
-          component={Movies}
-          onSave={handleSaveMovie}
-          onDelete={handleDeleteMovie}
-        />
-        <ProtectedRoute
-          path="/saved-movies"
-          loggedIn={loggedIn}
-          component={SavedMovies}
-          onDelete={handleDeleteMovie}
-          data={savedMovies}
-        />
-        <ProtectedRoute
-          path="/profile"
-          loggedIn={loggedIn}
-          component={Profile}
-          onSignOut={handleSignOut}
-          onUpdateProfile={handleUpdateProfile}
-          onError={apiErrMessage}
-          onOk={apiOkMessage}
-        />
-        <Route path="*">
-          <NotFoundPage />
-        </Route>
-      </Switch>
-      <Navigation isOpen={isNavigationOpen} onClose={closeNavigationBar}/>
-      <Footer />
-    </div>
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Movies}
+            onSave={handleSaveMovie}
+            onDelete={handleDeleteMovie}
+            savedMovies={savedMovies}
+          />
+          <ProtectedRoute
+            path="/saved-movies"
+            loggedIn={loggedIn}
+            component={SavedMovies}
+            onDelete={handleDeleteMovie}
+            data={savedMovies}
+            isLoading={isLoading}
+          />
+          <ProtectedRoute
+            path="/profile"
+            loggedIn={loggedIn}
+            component={Profile}
+            onSignOut={handleSignOut}
+            onUpdateProfile={handleUpdateProfile}
+            onError={apiErrMessage}
+            onOk={apiOkMessage}
+            isLoading={isLoading}
+          />
+          <Route path="*">
+            <NotFoundPage/>
+          </Route>
+        </Switch>
+        <Navigation isOpen={isNavigationOpen} onClose={closeNavigationBar}/>
+        <Footer/>
+      </div>
     </CurrentUserContext.Provider>
   );
 }

@@ -1,8 +1,9 @@
 import React from "react";
 
 import './Profile.css';
-import { useFormWithValidation } from '../../utils/validation';
+import {useFormWithValidation} from '../../utils/validation';
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import Preloader from "../Movies/Preloader/Preloader";
 
 function Profile(props) {
   const {
@@ -39,44 +40,49 @@ function Profile(props) {
     setResStatus('');
   }, [currentUser]);
 
-  return(
+  return (
     <section className='profile'>
       <h1 className='profile__title'>{`Привет, ${currentName}!`}</h1>
-      <form className='profile__form' onSubmit={handleSubmit}>
-        <fieldset className='profile__fieldset'>
-          <label className='profile__label'>
-            Имя
-            <input className='profile__input'
-                   type='text'
-                   name='nameInput'
-                   pattern='[a-zA-Zа-яА-ЯёЁ\s-]{2,30}'
-                   placeholder='Имя'
-                   value={values.nameInput || currentName}
-                   onChange={handleChange}
-                   required
-            />
-          </label>
-          <label className='profile__label'>
-            Email
-            <input className='profile__input'
-                   type='email'
-                   name='emailInput'
-                   value={values.emailInput || currentEmail}
-                   placeholder='Email'
-                   onChange={handleChange}
-                   required
-            />
-          </label>
-        </fieldset>
-        <span className={`profile__result
+      {props.isLoading ? <Preloader/> :
+        <>
+          <form className='profile__form' onSubmit={handleSubmit}>
+            <fieldset className='profile__fieldset'>
+              <label className='profile__label'>
+                Имя
+                <input className='profile__input'
+                       type='text'
+                       name='nameInput'
+                       pattern='[a-zA-Zа-яА-ЯёЁ\s-]{2,30}'
+                       placeholder='Имя'
+                       value={values.nameInput || currentName}
+                       onChange={handleChange}
+                       required
+                />
+              </label>
+              <label className='profile__label'>
+                Email
+                <input className='profile__input'
+                       type='email'
+                       name='emailInput'
+                       value={values.emailInput || currentEmail}
+                       placeholder='Email'
+                       onChange={handleChange}
+                       required
+                />
+              </label>
+            </fieldset>
+            <span className={`profile__result
         ${(errors.nameInput || errors.emailInput || resStatus) && `profile__result_type_${resStatus}`}`}>
           {errors.nameInput || errors.emailInput || props.onError || props.onOk || 'текст ошибки'}
         </span>
-        <button className={`profile__button ${isValid && isUpdate && 'profile__button_type_active'}`} type='submit'>
-          Редактировать
-        </button>
-      </form>
-      <button className='profile__button profile__button_type_exit' onClick={props.onSignOut}>Выйти из аккаунта</button>
+            <button className={`profile__button ${isValid && isUpdate && 'profile__button_type_active'}`} type='submit'>
+              Редактировать
+            </button>
+          </form>
+          <button className='profile__button profile__button_type_exit' onClick={props.onSignOut}>Выйти из аккаунта
+          </button>
+        </>
+      }
     </section>
   )
 }

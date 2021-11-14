@@ -2,7 +2,7 @@ import React from "react";
 
 import './SearchForm.css'
 
-import { useFormWithValidation } from '../../../utils/validation';
+import {useFormWithValidation} from '../../../utils/validation';
 
 function SearchForm(props) {
 
@@ -24,7 +24,7 @@ function SearchForm(props) {
 
   const customErrMessage = errors.searchInput ? 'Нужно ввести ключевое слово' : '';
 
-  return(
+  return (
     <section className='section search'>
       <form className='search__form' name='searchForm' noValidate onSubmit={handleSubmit}>
         <div className='search__main-container'>
@@ -49,7 +49,7 @@ function SearchForm(props) {
           </label>
           <span className='search__shortfilm'>Короткометражки</span>
         </div>
-        </form>
+      </form>
       <p className={`search__input-error ${errors.searchInput && 'search__input-error_active'}`}>
         {customErrMessage || 'текст ошибки'}
       </p>

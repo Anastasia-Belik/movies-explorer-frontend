@@ -10,7 +10,7 @@ function NotFoundPage() {
     history.goBack()
   }
 
-  return(
+  return (
     <section className='nfpage'>
       <div className='nfpage__content'>
         <h1 className='nfpage__code'>404</h1>

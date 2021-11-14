@@ -41,6 +41,7 @@ function MoviesCardList(props) {
 
   React.useEffect(() => {
     setVisibleCards(allCards.splice(0, maxVisibleCards));
+
     function onResize() {
       setScreenWidth(window.innerWidth);
     }
@@ -53,7 +54,7 @@ function MoviesCardList(props) {
 
   }, [allCards, maxVisibleCards]);
 
-  return(
+  return (
     <section className="section cards">
       <ul className="cards__list">
         {((location.pathname === '/saved-movies') ? props.cards : visibleCards).map((card) => (
@@ -65,12 +66,15 @@ function MoviesCardList(props) {
           />
         ))}
       </ul>
-      <p className="cards__no-result">По вашему запросу ничего не найдено, попробуйте еще раз</p>
-      <p className="cards__server-error">Упс, на сайте что-то поломалось, подождите немного и попробуйте еще раз</p>
+      {props.isNullResult &&
+      <p className="cards__no-result">По вашему запросу ничего не найдено, попробуйте еще раз</p>}
+      {props.isServerError &&
+      <p className="cards__server-error">Упс, на сайте что-то поломалось, подождите немного и попробуйте еще раз</p>}
       <div className='cards__button-container'>
-        <button className={`cards__button ${(location.pathname === '/movies') && allCards.length > 0 && 'cards__button_active'}`}
-                type='button'
-                onClick={handleClick}>
+        <button
+          className={`cards__button ${(location.pathname === '/movies') && allCards.length > 0 && 'cards__button_active'}`}
+          type='button'
+          onClick={handleClick}>
           Еще
         </button>
       </div>

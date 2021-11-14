@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router";
+import {useLocation} from "react-router";
 
 import './MoviesCard.css';
 
@@ -11,7 +11,7 @@ function MoviesCard(props) {
   let saveButtonClassName;
   let imgLink
 
-  if(location.pathname === '/saved-movies') {
+  if (location.pathname === '/saved-movies') {
     saveButtonClassName = 'delete';
     imgLink = props.data.image;
   } else {
@@ -32,7 +32,7 @@ function MoviesCard(props) {
   }
 
 
-  return(
+  return (
     <li className='movies-card'>
       <div className='movies-card__header'>
         <a href={props.data.trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>

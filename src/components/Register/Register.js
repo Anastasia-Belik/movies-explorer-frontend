@@ -1,11 +1,10 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
+import Preloader from "../Movies/Preloader/Preloader";
 
 function Register(props) {
-  return(
-    <>
-      <AuthForm onRegister={props.onRegister} onError={props.onError}/>
-    </>
+  return (
+    props.isLoading ? <Preloader/> : <AuthForm onRegister={props.onRegister} onError={props.onError}/>
   )
 }
 

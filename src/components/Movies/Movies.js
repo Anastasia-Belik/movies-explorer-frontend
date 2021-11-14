@@ -3,8 +3,10 @@ import React from "react";
 import * as MoviesApi from '../../utils/MoviesApi';
 import filterResult from "../../utils/filterResult";
 import filterDuration from "../../utils/filterDuration";
+import checkSavedMovies from "../../utils/checkSavedMovies";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
+import Preloader from "./Preloader/Preloader";
 
 
 function Movies(props) {
@@ -12,7 +14,10 @@ function Movies(props) {
   const [searchInput, setSearchInput] = React.useState();
   const [searchResult, setSearchResult] = React.useState([]);
   const [isCheckBoxActive, setIsCheckBoxActive] = React.useState(false);
-  const [isLocalStorageUpdate, setIsLocalStorageUpdate] = React.useState(false);
+  const [finalResult, setIsFinalResult] = React.useState([]);
+  const [isNullResult, setIsNullResult] = React.useState(false);
+  const [isServerError, setIsServerError] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function onSearch(inputValue) {
     setSearchInput(inputValue);
@@ -23,40 +28,52 @@ function Movies(props) {
   }
 
   React.useEffect(() => {
-    if (searchInput) {
-      MoviesApi.getMovies()
-        .then((res) => {
-          const filteredResult = filterResult(res, searchInput);
-          if(isCheckBoxActive){
-            const filteredDuration = filterDuration(filteredResult, 41);
-            setSearchResult(filteredDuration);
-          } else {
+      if (searchInput) {
+        setIsNullResult(false);
+        setIsServerError(false);
+        setIsLoading(true);
+        MoviesApi.getMovies()
+          .then((res) => {
+            let filteredResult = filterResult(res, searchInput);
+            if (isCheckBoxActive) {
+              filteredResult = filterDuration(filteredResult, 41);
+            }
+            if (filteredResult.length === 0) {
+              setIsNullResult(true);
+            }
+            localStorage.setItem('searchResult', JSON.stringify(filteredResult));
             setSearchResult(filteredResult);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            setIsServerError(true);
+            console.log(err);
+          })
       }
     }
-  , [isCheckBoxActive, searchInput]);
+    , [isCheckBoxActive, searchInput]);
+
 
   React.useEffect(() => {
-    if(searchResult.length > 0) {
-      localStorage.setItem('searchResult', JSON.stringify(searchResult));
-      setIsLocalStorageUpdate(prev => !prev);
-      console.log(JSON.parse(localStorage.getItem('searchResult')));
+    const moviesFromStorage = JSON.parse(localStorage.getItem('searchResult'));
+    if (moviesFromStorage) {
+      setIsFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies))
     }
-  }, [searchResult], isLocalStorageUpdate)
+  }, [searchResult, props.savedMovies])
 
-  return(
+  return (
     <main>
       <SearchForm onSearch={onSearch} onCheckBoxClick={handleCheckBoxClick}/>
-      <MoviesCardList
-        cards={JSON.parse(localStorage.getItem('searchResult')) || []}
-        onSave={props.onSave}
-        onDelete={props.onDelete}
-      />
+      {isLoading ?
+        <Preloader/> :
+        <MoviesCardList
+          cards={finalResult || []}
+          onSave={props.onSave}
+          onDelete={props.onDelete}
+          isNullResult={isNullResult}
+          isServerError={isServerError}
+        />}
     </main>
   )
 }
