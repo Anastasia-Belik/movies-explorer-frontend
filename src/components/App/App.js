@@ -61,6 +61,7 @@ function App() {
       .then((data) => {
           if (data.token) {
             setLoggedIn(true);
+            setApiErrMessage('');
             history.push('/movies');
             setIsLoading(false)
           }

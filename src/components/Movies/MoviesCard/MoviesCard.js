@@ -3,7 +3,6 @@ import {useLocation} from "react-router";
 
 import './MoviesCard.css';
 
-
 function MoviesCard(props) {
 
   const location = useLocation();
@@ -54,4 +53,4 @@ function MoviesCard(props) {
   )
 }
 
-export default MoviesCard;
+export default React.memo(MoviesCard);

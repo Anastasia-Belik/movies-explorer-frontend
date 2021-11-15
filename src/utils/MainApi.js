@@ -5,7 +5,7 @@ function _getResponseData(res) {
     if(res.status === 409) {
       return Promise.reject(`Ошибка: пользователь с таким email уже существует`);
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.json().then(data => Promise.reject(data.message))
   }
   return res.json();
 }
@@ -37,18 +37,6 @@ export const authorize = (email, password) => {
       }
     })
 };
-
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    }
-  })
-    .then(response => _getResponseData(response))
-    .then(data => data)
-}
 
 export const getUserInfo = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
