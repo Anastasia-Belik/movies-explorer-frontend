@@ -2,7 +2,10 @@ export const BASE_URL = 'https://api.movies-explorer.belik.nomoredomains.monster
 
 function _getResponseData(res) {
   if (!res.ok) {
-    return Promise.reject(`Ошибка: ${res.message}`);
+    if(res.status === 409) {
+      return Promise.reject(`Ошибка: пользователь с таким email уже существует`);
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
   return res.json();
 }
