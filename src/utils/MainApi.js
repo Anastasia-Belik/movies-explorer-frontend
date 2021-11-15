@@ -82,7 +82,7 @@ export const saveMovie = (movie, token) => {
       'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({
-      country,
+      country: country || 'Неизвестно',
       director,
       duration,
       year,
