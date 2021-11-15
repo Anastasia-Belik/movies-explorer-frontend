@@ -11,14 +11,12 @@ function SearchForm(props) {
     handleChange,
     errors,
     isValid,
-    resetForm
   } = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();
     if (values['searchInput']) {
       props.onSearch(values['searchInput']);
-      resetForm();
     }
   }
 

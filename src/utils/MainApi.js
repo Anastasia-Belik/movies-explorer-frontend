@@ -90,7 +90,7 @@ export const saveMovie = (movie, token) => {
       image: `https://api.nomoreparties.co${image.url}`,
       trailer: trailerLink,
       nameRU,
-      nameEN,
+      nameEN: nameEN || 'Unknown',
       thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
       movieId: id,
     })
