@@ -94,11 +94,6 @@
   padding-bottom: 97px;
 }
 
-.profile__result_type_ok {
-  opacity: 1;
-  color: #2BE080;
-}
-
 .profile__result_type_err {
   opacity: 1;
   color: #EE3465;

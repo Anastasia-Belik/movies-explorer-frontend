@@ -30,7 +30,11 @@ function Profile(props) {
     }
   }
 
-  React.useEffect(() => {}, [currentUser]);
+  React.useEffect(() => {
+    return () => {
+      props.onResetErr();
+    }
+  }, [currentUser]);
 
   return (
     <section className='profile'>
