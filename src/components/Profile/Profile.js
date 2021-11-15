@@ -16,33 +16,25 @@ function Profile(props) {
 
 
   const currentUser = React.useContext(CurrentUserContext);
-  const [currentName, setCurrentName] = React.useState('');
-  const [currentEmail, setCurrentEmail] = React.useState('');
-  const [resStatus, setResStatus] = React.useState('');
 
-  const isUpdate = (currentName !== values.nameInput) && (currentEmail !== values.emailInput);
+  const isChangedName = !values.nameInput ? false : currentUser.name !== values.nameInput;
+  const isChangedEmail = !values.emailInput ? false : currentUser.email !== values.emailInput;
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (isValid && isUpdate) {
-      const name = values.nameInput || currentName;
-      const email = values.emailInput || currentEmail;
+    if (isValid && (isChangedName || isChangedEmail)) {
+      const name = values.nameInput || currentUser.name;
+      const email = values.emailInput || currentUser.email;
       props.onUpdateProfile(name, email);
-      setCurrentName(name);
-      setCurrentEmail(email);
       resetForm();
     }
   }
 
-  React.useEffect(() => {
-    setCurrentName(currentUser.name ?? '');
-    setCurrentEmail(currentUser.email ?? '');
-    setResStatus('');
-  }, [currentUser]);
+  React.useEffect(() => {}, [currentUser]);
 
   return (
     <section className='profile'>
-      <h1 className='profile__title'>{`Привет, ${currentName}!`}</h1>
+      <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
       {props.isLoading ? <Preloader/> :
         <>
           <form className='profile__form' onSubmit={handleSubmit}>
@@ -54,7 +46,7 @@ function Profile(props) {
                        name='nameInput'
                        pattern='[a-zA-Zа-яА-ЯёЁ\s-]{2,30}'
                        placeholder='Имя'
-                       value={values.nameInput || currentName}
+                       value={values.nameInput || currentUser.name}
                        onChange={handleChange}
                        required
                 />
@@ -64,18 +56,17 @@ function Profile(props) {
                 <input className='profile__input'
                        type='email'
                        name='emailInput'
-                       value={values.emailInput || currentEmail}
+                       value={values.emailInput || currentUser.email}
                        placeholder='Email'
                        onChange={handleChange}
                        required
                 />
               </label>
             </fieldset>
-            <span className={`profile__result
-        ${(errors.nameInput || errors.emailInput || resStatus) && `profile__result_type_${resStatus}`}`}>
-          {errors.nameInput || errors.emailInput || props.onError || props.onOk || 'текст ошибки'}
-        </span>
-            <button className={`profile__button ${isValid && isUpdate && 'profile__button_type_active'}`} type='submit'>
+            <span className={`profile__result ${(errors.nameInput || errors.emailInput || props.onError) && `profile__result_type_err`}`}>
+              {errors.nameInput || errors.emailInput ||  props.onError || 'ошибка'}
+            </span>
+            <button className={`profile__button ${isValid && (isChangedName || isChangedEmail) && 'profile__button_type_active'}`} type='submit'>
               Редактировать
             </button>
           </form>
