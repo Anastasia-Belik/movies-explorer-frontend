@@ -85,7 +85,8 @@ function AuthForm(props) {
           <label className='authform__label'>
             Email
             <input className={`authform__input ${errors.emailInput && 'authform__input_err'}`}
-                   type='email'
+                   type='text'
+                   pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                    placeholder='Email'
                    name='emailInput'
                    value={values.emailInput || ''}
@@ -102,6 +103,7 @@ function AuthForm(props) {
             <input className={`authform__input ${errors.passwordInput && 'authform__input_err'}`}
                    type='password'
                    placeholder='Пароль'
+                   minLength='5'
                    name='passwordInput'
                    value={values.passwordInput || ''}
                    onChange={handleChange}

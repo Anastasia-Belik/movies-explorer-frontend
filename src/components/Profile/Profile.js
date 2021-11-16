@@ -60,6 +60,7 @@ function Profile(props) {
                 <input className='profile__input'
                        type='email'
                        name='emailInput'
+                       pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                        value={values.emailInput || currentUser.email}
                        placeholder='Email'
                        onChange={handleChange}
