@@ -22,10 +22,6 @@
   align-items: center;
 }
 
-.header__navigation_location_main {
-  justify-content: flex-end;
-}
-
 .header__links {
   margin: 0 0 0 44px;
   padding: 0;

@@ -34,26 +34,24 @@ function Header(props) {
       <Link to='/'>
         <div className='logo'/>
       </Link>
-      <nav className={`header__navigation ${(location.pathname === '/') && 'header__navigation_location_main'}`}>
-        {(location.pathname !== '/') &&
-        <ul className='header__links header__links_type_movies'>
-          <li>
-            <Link to='/movies'
-                  className={`header__link ${(location.pathname === '/movies') && 'header__link_bold'}`}>
-              Фильмы
-            </Link>
-          </li>
-          <li>
-            <Link to='/saved-movies'
-                  className={`header__link ${(location.pathname === '/saved-movies') && 'header__link_bold'}`}>
-              Сохраненные фильмы
-            </Link>
-          </li>
-        </ul>
-        }
+      <nav className='header__navigation'>
         {isLogin ?
           <>
-            <ProfileLink isHeader={true}/>
+            <ul className='header__links header__links_type_movies'>
+              <li>
+                <Link to='/movies'
+                      className={`header__link ${(location.pathname === '/movies') && 'header__link_bold'}`}>
+                  Фильмы
+                </Link>
+              </li>
+              <li>
+                <Link to='/saved-movies'
+                      className={`header__link ${(location.pathname === '/saved-movies') && 'header__link_bold'}`}>
+                  Сохраненные фильмы
+                </Link>
+              </li>
+            </ul>
+            <ProfileLink isHeader={isLogin}/>
             <button
               className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}
               onClick={props.onBurgerButtonClick}
@@ -70,7 +68,8 @@ function Header(props) {
                 Войти
               </li>
             </Link>
-          </ul>}
+          </ul>
+        }
       </nav>
     </header>
   )
