@@ -117,18 +117,7 @@ function App() {
     MainApi.saveMovie(card, token)
       .then((res) => {
         if (res) {
-          MainApi.getSavedMovies(token)
-            .then((res) => {
-              setIsLoading(false);
-              res.movies.forEach((movie) => {
-                movie.isSaved = true;
-              })
-              setSavedMovies(res.movies);
-            })
-            .catch((err) => {
-              setIsLoading(false);
-              console.log(err);
-            })
+          loadSavedMovies(token, currentUser._id);
         }
       })
       .catch((err) => {
@@ -158,16 +147,36 @@ function App() {
       });
   }
 
+  function loadSavedMovies(jwt, currentUserId) {
+    MainApi.getSavedMovies(jwt)
+      .then((res) => {
+        setIsLoading(false);
+        const currenUserSavedMovies = res.movies.filter(el => el.owner === currentUserId);
+        currenUserSavedMovies.forEach((movie) => {
+            movie.isSaved = true;
+          })
+        setSavedMovies(currenUserSavedMovies);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      })
+  }
+
   React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       switch (location.pathname) {
-        case '/': history.replace('/movies');
-        break;
-        case '/signup': history.replace('/movies');
+        case '/':
+          history.replace('/movies');
           break;
-        case '/signin': history.replace('/movies');
+        case '/signup':
+          history.replace('/movies');
           break;
-        default: history.replace(location.pathname);
+        case '/signin':
+          history.replace('/movies');
+          break;
+        default:
+          history.replace(location.pathname);
       }
 
       const jwt = localStorage.getItem('jwt');
@@ -179,6 +188,7 @@ function App() {
           setIsLoading(false);
           setCurrentUser(data.data);
           setLoggedIn(true);
+          loadSavedMovies(jwt, data.data._id);
         })
         .catch((err) => {
           setIsLoading(false);
@@ -186,19 +196,6 @@ function App() {
         })
 
       setIsLoading(true);
-
-      MainApi.getSavedMovies(jwt)
-        .then((res) => {
-          setIsLoading(false);
-          res.movies.forEach((movie) => {
-            movie.isSaved = true;
-          })
-          setSavedMovies(res.movies);
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          console.log(err);
-        })
     }
   }, [loggedIn, history])
 
@@ -249,7 +246,7 @@ function App() {
             <NotFoundPage/>
           </Route>
           <Route>
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
+            {loggedIn ? <Redirect to="/movies"/> : <Redirect to="/"/>}
           </Route>
         </Switch>
         <Navigation isOpen={isNavigationOpen} onClose={closeNavigationBar}/>
