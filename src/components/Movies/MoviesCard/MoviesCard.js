@@ -8,14 +8,17 @@ function MoviesCard(props) {
   const location = useLocation();
 
   let saveButtonClassName;
-  let imgLink
+  let imgLink;
+  let trailerLink;
 
   if (location.pathname === '/saved-movies') {
     saveButtonClassName = 'delete';
     imgLink = props.data.image;
+    trailerLink = props.data.trailer;
   } else {
     saveButtonClassName = props.data.isSaved ? 'saved' : 'notsaved';
-    imgLink = `https://api.nomoreparties.co${props.data.image.url}`
+    imgLink = `https://api.nomoreparties.co${props.data.image.url}`;
+    trailerLink = props.data.trailerLink;
   }
 
   const hour = Math.floor(props.data.duration / 60);
@@ -34,7 +37,7 @@ function MoviesCard(props) {
   return (
     <li className='movies-card'>
       <div className='movies-card__header'>
-        <a href={props.data.trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
+        <a href={trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
           <div className='movies-card__info'>
             <h2 className='movies-card__name' title={props.data.nameRU}>{props.data.nameRU}</h2>
             <p className='movies-card__duration'>{hour > 0 && `${hour}ч`} {min > 0 && `${min}м`}</p>
@@ -46,7 +49,7 @@ function MoviesCard(props) {
           onClick={props.data.isSaved ? handleDeleteButtonClick : handleSaveButtonClick}
         />
       </div>
-      <a href={props.data.trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
+      <a href={trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
         <img className='movies-card__image' src={imgLink} alt={props.data.nameRU}/>
       </a>
     </li>
