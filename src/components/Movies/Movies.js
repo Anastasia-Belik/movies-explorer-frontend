@@ -11,10 +11,10 @@ import Preloader from "./Preloader/Preloader";
 
 function Movies(props) {
 
-  const [searchInput, setSearchInput] = React.useState(); // ключевое словов в инпуте
+  const [searchInput, setSearchInput] = React.useState(''); // ключевое словов в инпуте
   const [searchResult, setSearchResult] = React.useState([]); // результаты поиска
   const [isCheckBoxActive, setIsCheckBoxActive] = React.useState(false); // активность чекбокса короткометражек
-  const [finalResult, setIsFinalResult] = React.useState([]); // результат из локалстораджа проверенный на сохраненные фильмы
+  const [finalResult, setFinalResult] = React.useState([]); // результат из локалстораджа проверенный на сохраненные фильмы
   const [isNullResult, setIsNullResult] = React.useState(false); // есть ли результаты поиска
   const [isServerError, setIsServerError] = React.useState(false); // есть ли ошибка сервера
   const [isLoading, setIsLoading] = React.useState(false); // загрузка данных с сервера
@@ -27,11 +27,11 @@ function Movies(props) {
     setIsCheckBoxActive(!isCheckBoxActive)
   }
 
-  function onSearch(inputValue) {
+  function handleSearch(inputValue) {
     setSearchInput(inputValue);
   }
 
-  function onResize() {
+  function calculateScreenWidth() {
     const screenWidth = window.innerWidth;
     switch (true) {
       case screenWidth > 479 && screenWidth < 769:
@@ -59,10 +59,10 @@ function Movies(props) {
 
 
   React.useEffect(() => {
-    onResize();
-    window.addEventListener("resize", onResize);
+    calculateScreenWidth();
+    window.addEventListener("resize", calculateScreenWidth);
     return () => {
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", calculateScreenWidth);
     };
   }, []);
 
@@ -98,13 +98,13 @@ function Movies(props) {
   React.useEffect(() => {
     const moviesFromStorage = JSON.parse(localStorage.getItem('searchResult'));
     if (moviesFromStorage) {
-      setIsFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies))
+      setFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies))
     }
   }, [searchResult, props.savedMovies])
 
   return (
     <main>
-      <SearchForm onSearch={onSearch} onCheckBoxClick={handleCheckBoxClick}/>
+      <SearchForm onSearch={handleSearch} onCheckBoxClick={handleCheckBoxClick}/>
       {isLoading ?
         <Preloader/> :
         <MoviesCardList

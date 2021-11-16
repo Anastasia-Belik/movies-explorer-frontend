@@ -18,7 +18,7 @@ function SavedMovies(props) {
     setIsCheckBoxActive(!isCheckBoxActive)
   }
 
-  function onSearch(input) {
+  function handleSearch(input) {
     setIsNullResult(false);
     let filteredResult = filterResult(props.data, input);
     if (isCheckBoxActive) {
@@ -36,7 +36,7 @@ function SavedMovies(props) {
 
   return (
     <main>
-      <SearchForm onSearch={onSearch} onCheckBoxClick={handleCheckBoxClick}/>
+      <SearchForm onSearch={handleSearch} onCheckBoxClick={handleCheckBoxClick}/>
 
       {props.isLoading ? <Preloader/> :
         <MoviesCardList cards={savedMovies} onDelete={props.onDelete} isNullResult={isNullResult}/>}

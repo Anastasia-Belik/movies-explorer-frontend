@@ -124,8 +124,6 @@ function AuthForm(props) {
           {linkText}
         </Link>
       </p>
-
-
     </section>
   )
 }

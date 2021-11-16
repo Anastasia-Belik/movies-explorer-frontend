@@ -137,7 +137,7 @@ function App() {
       });
   }
 
-  function handleDeleteMovie(id) { //здесь надо передавать ObjectId, который приходит от монго
+  function handleDeleteMovie(id) {
     const token = localStorage.getItem('jwt');
     setIsLoading(true);
     MainApi.deleteMovie(id, token)

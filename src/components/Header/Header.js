@@ -8,8 +8,6 @@ import ProfileLink from "../ProfileLink/ProfileLink";
 function Header(props) {
   const location = useLocation();
 
-  const isLogin = props.isLogin
-
   let headerClassNames;
 
   switch (location.pathname) {
@@ -35,7 +33,7 @@ function Header(props) {
         <div className='logo'/>
       </Link>
       <nav className='header__navigation'>
-        {isLogin ?
+        {props.isLogin ?
           <>
             <ul className='header__links header__links_type_movies'>
               <li>
@@ -51,7 +49,7 @@ function Header(props) {
                 </Link>
               </li>
             </ul>
-            <ProfileLink isHeader={isLogin}/>
+            <ProfileLink isHeader={props.isLogin}/>
             <button
               className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}
               onClick={props.onBurgerButtonClick}
