@@ -32,7 +32,7 @@ function Header(props) {
       <Link to='/'>
         <div className='logo'/>
       </Link>
-      <nav className='header__navigation'>
+      <nav className={`header__navigation ${(location.pathname === '/') && !props.isLogin  && 'header__navigation_location_main'}`}>
         {props.isLogin ?
           <>
             <ul className='header__links header__links_type_movies'>
