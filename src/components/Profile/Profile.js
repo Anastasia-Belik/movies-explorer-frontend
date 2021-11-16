@@ -34,7 +34,7 @@ function Profile(props) {
     return () => {
       props.onResetErr();
     }
-  }, [currentUser]);
+  }, []);
 
   return (
     <section className='profile'>
@@ -67,8 +67,8 @@ function Profile(props) {
                 />
               </label>
             </fieldset>
-            <span className={`profile__result ${(errors.nameInput || errors.emailInput || props.onError) && `profile__result_type_err`}`}>
-              {errors.nameInput || errors.emailInput ||  props.onError || 'ошибка'}
+            <span className={`profile__result ${(errors.nameInput || errors.emailInput || props.onApiRes) && `profile__result_type_err`}`}>
+              {errors.nameInput || errors.emailInput ||  props.onApiRes || 'ошибка'}
             </span>
             <button className={`profile__button ${isValid && (isChangedName || isChangedEmail) && 'profile__button_type_active'}`} type='submit'>
               Редактировать

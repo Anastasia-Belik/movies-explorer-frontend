@@ -23,7 +23,7 @@ function App() {
   const location = useLocation();
 
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [apiErrMessage, setApiErrMessage] = React.useState('');
+  const [apiMessage, setApiMessage] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({});
   const [isNavigationOpen, setIsNavigationOpen] = React.useState(false);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -40,14 +40,14 @@ function App() {
     MainApi.register(email, password, name)
       .then((res) => {
         if (res) {
-          setApiErrMessage('');
+          setApiMessage('');
           handleLogin(values);
           setIsLoading(false);
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setApiErrMessage(err);
+        setApiMessage(err);
       });
   }
 
@@ -61,7 +61,7 @@ function App() {
       .then((data) => {
           if (data.token) {
             setLoggedIn(true);
-            setApiErrMessage('');
+            setApiMessage('');
             history.push('/movies');
             setIsLoading(false)
           }
@@ -69,7 +69,7 @@ function App() {
       )
       .catch(err => {
         setIsLoading(false);
-        setApiErrMessage(err)
+        setApiMessage(err)
       });
   }
 
@@ -81,25 +81,25 @@ function App() {
       .then((res) => {
         setIsLoading(false);
         if (res) {
-          setApiErrMessage('');
+          setApiMessage('Изменения успешно внесены');
           setCurrentUser(res.data)
         }
       })
       .catch((err) => {
         setIsLoading(false);
-        setApiErrMessage(err);
+        setApiMessage(err);
       });
   }
 
   function resetErrMessage() {
-    setApiErrMessage('');
+    setApiMessage('');
   }
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('searchResult');
     setLoggedIn(false);
-    setApiErrMessage('');
+    setApiMessage('');
     history.push('/');
   }
 
@@ -235,15 +235,15 @@ function App() {
             component={Profile}
             onSignOut={handleSignOut}
             onUpdateProfile={handleUpdateProfile}
-            onError={apiErrMessage}
+            onApiRes={apiMessage}
             isLoading={isLoading}
             onResetErr={resetErrMessage}
           />
           <Route exact path="/signin">
-            <Login onLogin={handleLogin} onError={apiErrMessage} isLoading={isLoading}/>
+            <Login onLogin={handleLogin} onError={apiMessage} isLoading={isLoading}/>
           </Route>
           <Route exact path="/signup">
-            <Register onRegister={handleRegister} onError={apiErrMessage} isLoading={isLoading}/>
+            <Register onRegister={handleRegister} onError={apiMessage} isLoading={isLoading}/>
           </Route>
           <Route path="*">
             <NotFoundPage/>
