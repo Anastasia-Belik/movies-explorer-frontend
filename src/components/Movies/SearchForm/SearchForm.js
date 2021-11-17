@@ -6,21 +6,22 @@ import {useFormWithValidation} from '../../../utils/validation';
 
 function SearchForm(props) {
 
+  const [searchValidationMessage, setSearchValidationMessage] = React.useState('');
+
   const {
     values,
     handleChange,
-    errors,
-    isValid,
   } = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();
     if (values['searchInput']) {
       props.onSearch(values['searchInput']);
+      setSearchValidationMessage('');
+    } else {
+      setSearchValidationMessage('Нужно ввести ключевое слово');
     }
   }
-
-  const customErrMessage = errors.searchInput ? 'Нужно ввести ключевое слово' : '';
 
   return (
     <section className='section search'>
@@ -35,10 +36,9 @@ function SearchForm(props) {
                    name='searchInput'
                    value={values.searchInput || ''}
                    onChange={handleChange}
-                   required
             />
           </fieldset>
-          <button className={`search__button ${!isValid && 'search__button_inactive'}`} type='submit'/>
+          <button className='search__button' type='submit'/>
         </div>
         <div className='search__switch-container'>
           <label className='search__switch'>
@@ -48,8 +48,8 @@ function SearchForm(props) {
           <span className='search__shortfilm'>Короткометражки</span>
         </div>
       </form>
-      <p className={`search__input-error ${errors.searchInput && 'search__input-error_active'}`}>
-        {customErrMessage || 'текст ошибки'}
+      <p className={`search__input-error ${searchValidationMessage && 'search__input-error_active'}`}>
+        {searchValidationMessage || 'текст ошибки'}
       </p>
     </section>
   )
