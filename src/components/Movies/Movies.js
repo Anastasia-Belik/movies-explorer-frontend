@@ -75,9 +75,6 @@ function Movies(props) {
         MoviesApi.getMovies()
           .then((res) => {
             let filteredResult = filterResult(res, searchInput);
-            if (isCheckBoxActive) {
-              filteredResult = filterDuration(filteredResult, 41);
-            }
             if (filteredResult.length === 0) {
               setIsNullResult(true);
             }
@@ -92,19 +89,27 @@ function Movies(props) {
           })
       }
     }
-    , [isCheckBoxActive, searchInput]);
-
+    , [searchInput]);
 
   React.useEffect(() => {
     const moviesFromStorage = JSON.parse(localStorage.getItem('searchResult'));
-    if (moviesFromStorage) {
-      setFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies))
+
+    if (isCheckBoxActive) {
+      const shortMovies = filterDuration(moviesFromStorage, 41);
+      setFinalResult(checkSavedMovies(shortMovies, props.savedMovies));
+    } else {
+      setFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies));
     }
-  }, [searchResult, props.savedMovies])
+
+  }, [isCheckBoxActive, searchResult, props.savedMovies]);
+
 
   return (
     <main>
-      <SearchForm onSearch={handleSearch} onCheckBoxClick={handleCheckBoxClick}/>
+      <SearchForm
+        onSearch={handleSearch}
+        onCheckBoxClick={handleCheckBoxClick}
+      />
       {isLoading ?
         <Preloader/> :
         <MoviesCardList
