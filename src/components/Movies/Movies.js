@@ -94,13 +94,14 @@ function Movies(props) {
   React.useEffect(() => {
     const moviesFromStorage = JSON.parse(localStorage.getItem('searchResult'));
 
-    if (isCheckBoxActive) {
-      const shortMovies = filterDuration(moviesFromStorage, 41);
-      setFinalResult(checkSavedMovies(shortMovies, props.savedMovies));
-    } else {
-      setFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies));
+    if(moviesFromStorage){
+      if (isCheckBoxActive) {
+        const shortMovies = filterDuration(moviesFromStorage, 41);
+        setFinalResult(checkSavedMovies(shortMovies, props.savedMovies));
+      } else {
+        setFinalResult(checkSavedMovies(moviesFromStorage, props.savedMovies));
+      }
     }
-
   }, [isCheckBoxActive, searchResult, props.savedMovies]);
 
 
