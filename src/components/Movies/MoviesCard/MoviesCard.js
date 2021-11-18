@@ -1,37 +1,59 @@
 import React from "react";
-import { useLocation } from "react-router";
+import {useLocation} from "react-router";
 
 import './MoviesCard.css';
-
 
 function MoviesCard(props) {
 
   const location = useLocation();
-  let isSaved = false;
 
   let saveButtonClassName;
-  if(location.pathname === '/saved-movies') {
+  let imgLink;
+  let trailerLink;
+
+  if (location.pathname === '/saved-movies') {
     saveButtonClassName = 'delete';
+    imgLink = props.data.image;
+    trailerLink = props.data.trailer;
   } else {
-    saveButtonClassName = isSaved ? 'saved' : 'notsaved';
+    saveButtonClassName = props.data.isSaved ? 'saved' : 'notsaved';
+    imgLink = `https://api.nomoreparties.co${props.data.image.url}`;
+    trailerLink = props.data.trailerLink;
+  }
+
+  const hour = Math.floor(props.data.duration / 60);
+  const min = props.data.duration - hour * 60;
+
+
+  function handleSaveButtonClick() {
+    props.onSave(props.data);
+  }
+
+  function handleDeleteButtonClick() {
+    props.onDelete(props.data._id)
   }
 
 
-  return(
+  return (
     <li className='movies-card'>
       <div className='movies-card__header'>
-        <div className='movies-card__info'>
-          <h2 className='movies-card__name' title={props.data.name}>{props.data.name}</h2>
-          <p className='movies-card__duration'>{props.data.duration}</p>
-        </div>
+        <a href={trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
+          <div className='movies-card__info'>
+            <h2 className='movies-card__name' title={props.data.nameRU}>{props.data.nameRU}</h2>
+            <p className='movies-card__duration'>{hour > 0 && `${hour}ч`} {min > 0 && `${min}м`}</p>
+          </div>
+        </a>
         <button
           className={`movies-card__icon movies-card__icon_type_${saveButtonClassName}`}
           type='button'
+          onClick={props.data.isSaved ? handleDeleteButtonClick : handleSaveButtonClick}
         />
       </div>
-      <img className='movies-card__image' src={props.data.image} alt={props.data.name}/>
+      <a href={trailerLink} target='_blank' rel='noreferrer' className='movies-card__link'>
+        <img className='movies-card__image' src={imgLink} alt={props.data.nameRU}/>
+      </a>
     </li>
   )
 }
 
-export default MoviesCard;
+export default React.memo(MoviesCard);

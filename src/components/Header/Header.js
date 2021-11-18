@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import './Header.css'
 import {useLocation} from "react-router";
@@ -8,13 +8,9 @@ import ProfileLink from "../ProfileLink/ProfileLink";
 function Header(props) {
   const location = useLocation();
 
-  //временное решение для отображения хэдера до момента реализации авторизации
-  const isLogin = location.pathname !== '/';
-  /////////////////
-
   let headerClassNames;
 
-  switch (location.pathname){
+  switch (location.pathname) {
     case '/':
       headerClassNames = 'header header_location_main';
       break;
@@ -34,46 +30,45 @@ function Header(props) {
   return (
     <header className={`section ${headerClassNames}`}>
       <Link to='/'>
-        <div className='logo' />
+        <div className='logo'/>
       </Link>
-        <nav className={`header__navigation ${(location.pathname === '/') && 'header__navigation_location_main'}`}>
-          { (location.pathname !== '/') &&
-          <ul className='header__links header__links_type_movies'>
-            <li>
-              <Link to='/movies'
-                    className={`header__link ${(location.pathname === '/movies') && 'header__link_bold'}`}>
-                Фильмы
-              </Link>
-            </li>
-            <li>
-              <Link to='/saved-movies'
-                    className={`header__link ${(location.pathname === '/saved-movies') && 'header__link_bold'}`}>
-                Сохраненные фильмы
-              </Link>
-            </li>
-          </ul>
-          }
-          { isLogin ?
-            <>
-              <ProfileLink isHeader={true}/>
-              <button
-                className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}
-                onClick={props.onBurgerButtonClick}
-              />
-            </> :
-            <ul className='header__links header__links_type_auth'>
+      <nav className={`header__navigation ${(location.pathname === '/') && !props.isLogin  && 'header__navigation_location_main'}`}>
+        {props.isLogin ?
+          <>
+            <ul className='header__links header__links_type_movies'>
               <li>
-                <Link to='/signup' className='header__register'>
-                  Регистрация
+                <Link to='/movies'
+                      className={`header__link ${(location.pathname === '/movies') && 'header__link_bold'}`}>
+                  Фильмы
                 </Link>
               </li>
-              <Link to='/signin' className='header__login'>
-                <li>
-                  Войти
-                </li>
+              <li>
+                <Link to='/saved-movies'
+                      className={`header__link ${(location.pathname === '/saved-movies') && 'header__link_bold'}`}>
+                  Сохраненные фильмы
+                </Link>
+              </li>
+            </ul>
+            <ProfileLink isHeader={props.isLogin}/>
+            <button
+              className={`header__burgerButton ${(location.pathname === '/') && 'header__burgerButton_location_main'}`}
+              onClick={props.onBurgerButtonClick}
+            />
+          </> :
+          <ul className='header__links header__links_type_auth'>
+            <li>
+              <Link to='/signup' className='header__register'>
+                Регистрация
               </Link>
-            </ul> }
-        </nav>
+            </li>
+            <Link to='/signin' className='header__login'>
+              <li>
+                Войти
+              </li>
+            </Link>
+          </ul>
+        }
+      </nav>
     </header>
   )
 }

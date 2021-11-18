@@ -84,6 +84,16 @@
   opacity: 1;
 }
 
+.authform__api-err {
+  padding-bottom: 20px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
 .authform__button {
   border: 0;
   padding: 0;

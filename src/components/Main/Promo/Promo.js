@@ -3,7 +3,7 @@ import React from "react";
 import './Promo.css';
 import landingLogo from '../../../images/text__COLOR_landing-logo.svg';
 
-function Promo () {
+function Promo() {
   function handleClickButton() {
     document.querySelector('.about-project').scrollIntoView({behavior: "smooth"});
   }

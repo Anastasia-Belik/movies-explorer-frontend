@@ -14,6 +14,7 @@
 }
 
 .cards__button {
+  display: none;
   width: 320px;
   border: 1px solid #E8E8E8;
   border-radius: 5px;
@@ -29,8 +30,11 @@
   text-align: center;
 }
 
+.cards__button_active {
+  display: block;
+}
+
 .cards__no-result {
-  display: none;
   width: 50%;
   margin: 60px auto;
   font-style: normal;
@@ -41,7 +45,6 @@
 }
 
 .cards__server-error {
-  display: none;
   width: 50%;
   margin: 60px auto;
   font-style: normal;

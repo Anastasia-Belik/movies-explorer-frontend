@@ -3,6 +3,10 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 }
 
+.movies-card__link {
+  text-decoration: none;
+}
+
 .movies-card__header {
   padding: 14px;
   display: flex;
@@ -20,6 +24,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: #000;
 }
 
 .movies-card__duration {

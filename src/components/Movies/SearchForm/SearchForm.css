@@ -1,6 +1,6 @@
 .search {
   padding-top: 70px;
-  padding-bottom: 70px;
+  padding-bottom: 39px;
   margin-bottom: 10px;
   border-bottom: 1px solid #E8E8E8;
 }
@@ -59,6 +59,10 @@
   background-image: url("../../../images/find.svg");
   border-radius: 50%;
   cursor: pointer;
+}
+
+.search__button_inactive {
+  background-image: url("../../../images/find__inactive.svg");
 }
 
 .search__switch-container {
@@ -121,6 +125,20 @@ input:checked + .search__slider:before {
   font-weight: normal;
   font-size: 13px;
   line-height: 138%;
+}
+
+.search__input-error {
+  opacity: 0;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.search__input-error_active {
+  opacity: 1;
 }
 
 @media screen and (max-width: 770px) {
