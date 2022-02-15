@@ -12,7 +12,7 @@ function AboutMe() {
         <img src={photo} alt='Студент' className='about-me__photo'/>
         <div className='about-me__info'>
           <h3 className='about-me__name'>Анастасия</h3>
-          <h4 className='about-me__description'>Фронтенд-разработчик, 27 лет</h4>
+          <h4 className='about-me__description'>Фронтенд-разработчик, 28 лет</h4>
           <p className='section-text about-me__text'>
             Я родилась и живу в Москве. Начинала карьеру в банковской сфере,
             затем попала в IT-среду и заинтересовалась разработкой. Нравится делать красивые,
